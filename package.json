@@ -1,0 +1,33 @@
+{
+  "name": "node-functional-boilerplate",
+  "version": "0.0.1",
+  "description": "Node.JS Functional Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zrpaplicacoes/node-functional-boilerplate.git"
+  },
+  "keywords": [
+    "node",
+    "boilerplate",
+    "functional",
+    "javascript",
+    "zrp"
+  ],
+  "author": "ZRP Aplicações <zrp@zrp.com.br>",
+  "contributors": [
+    "Giovanni Armane <giovanniarmane@gmail.com>",
+    "Gustavo Rodarte <guga.rodarte@live.com >"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zrpaplicacoes/node-functional-boilerplate/issues"
+  },
+  "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
+  "dependencies": {
+    "eslint": "^6.1.0"
+  }
+}
