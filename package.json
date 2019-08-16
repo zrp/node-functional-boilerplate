@@ -27,7 +27,9 @@
     "url": "https://github.com/zrpaplicacoes/node-functional-boilerplate/issues"
   },
   "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
-  "dependencies": {},
+  "dependencies": {
+    "awilix": "^4.2.2"
+  },
   "devDependencies": {
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
