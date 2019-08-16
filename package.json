@@ -29,7 +29,8 @@
   "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
   "dependencies": {
     "awilix": "^4.2.2",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "sanctuary": "^2.0.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
