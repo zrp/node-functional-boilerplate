@@ -1,29 +1,22 @@
-const express = require('express');
+const express = require('express')();
+const { pipe } = require('sanctuary');
 
-class Server {
-  constructor({
-    config,
-    router,
-    logger,
-  }) {
-    this.config = config;
-    this.logger = logger;
-    this.express = express();
+const disableHeaders = (app) => app.disable('x-powered-by');
+const configureRouter = (router) => (app) => app.use(router);
+const startExpress = (logger) => (port) => (app) => app.listen(port,
+  () => logger.info(`[p ${process.pid}] Listening at port ${port}`));
 
-    this.express.disable('x-powered-by');
-    this.express.use(router);
-  }
-
-  start() {
-    return new Promise((resolve) => {
-      const port = process.env.EXPRESS_PORT || '80';
-      this.express
-        .listen(port, () => {
-          this.logger.info(`[p ${process.pid}] Listening at port ${port}`);
-          resolve();
-        });
-    });
-  }
-}
+const Server = ({
+  router,
+  logger,
+}) => ({
+  start: ({ port }) => new Promise((resolve) => resolve(
+    pipe(
+      disableHeaders,
+      configureRouter(router),
+      startExpress(logger)(port),
+    )(express),
+  )),
+});
 
 module.exports = Server;
