@@ -1,22 +1,22 @@
 const express = require('express')();
 const { pipe } = require('sanctuary');
 
-const disableHeaders = (app) => app.disable('x-powered-by');
-const configureRouter = (router) => (app) => app.use(router);
-const startExpress = (logger) => (port) => (app) => app.listen(port,
-  () => logger.info(`[p ${process.pid}] Listening at port ${port}`));
-
-const Server = ({
+module.exports = ({
   router,
   logger,
-}) => ({
-  start: ({ port }) => new Promise((resolve) => resolve(
-    pipe(
-      disableHeaders,
-      configureRouter(router),
-      startExpress(logger)(port),
-    )(express),
-  )),
-});
+}) => {
+  const disableHeaders = (app) => app.disable('x-powered-by');
+  const configureRouter = (app) => app.use(router);
+  const startExpress = ({ port }) => (app) => app.listen(port,
+    () => logger.info(`[p ${process.pid}] Listening at port ${port}`));
 
-module.exports = Server;
+  return {
+    start: (config) => new Promise((resolve) => resolve(
+      pipe(
+        disableHeaders,
+        configureRouter,
+        startExpress(config),
+      )(express),
+    )),
+  };
+};
