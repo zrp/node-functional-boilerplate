@@ -61,5 +61,10 @@
       "!src/interfaces/http/server.js",
       "!src/interfaces/http/routers/*"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "eslint . --ext .js --ignore-path .eslintignore"
+    }
   }
 }
