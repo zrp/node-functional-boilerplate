@@ -1,0 +1,3 @@
+# import Query.*, Mutation.* from "hero.graphql"
+
+scalar Date

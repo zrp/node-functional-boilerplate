@@ -14,11 +14,14 @@ const {
   httpOptionsMiddleware,
   loggerMiddleware,
 } = require('./interfaces/http/middleware');
-const server = require('./interfaces/http/server');
 const {
   rootRouter,
   v1Router,
 } = require('./interfaces/http/routers');
+const context = require('./interfaces/http/graphQL/context');
+const server = require('./interfaces/http/server');
+const resolvers = require('./interfaces/http/graphQL/resolvers');
+const typeDefs = require('./interfaces/http/graphQL/typeDefs');
 
 // Application layer imports
 const application = require('./app/application');
@@ -46,6 +49,9 @@ module.exports = createContainer()
   })
   // Interfaces layer registrations
   .register({
+    context: asFunction(context).singleton(),
+    resolvers: asFunction(resolvers).singleton(),
+    typeDefs: asFunction(typeDefs).singleton(),
     healthCheckHandler: asFunction(healthCheckHandler).singleton(),
     corsMiddleware: asFunction(corsMiddleware).singleton(),
     httpOptionsMiddleware: asFunction(httpOptionsMiddleware).singleton(),
