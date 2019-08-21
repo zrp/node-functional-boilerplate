@@ -1,0 +1,77 @@
+version: "3"
+
+volumes:
+  db-data:
+    driver: local
+  redis-data:
+    driver: local
+
+services:
+  base: &base
+    hostname: base
+    image: node:functional-boilerplate
+    ports: []
+    stdin_open: true
+    tty: true
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    volumes:
+      - .:/home/node/app
+
+  swagger:
+    hostname: swagger
+    image: swaggerapi/swagger-ui
+    ports:
+      - 5003:8080
+    volumes:
+      - ./swagger.json:/home/node/app/swagger.json
+    environment:
+      SWAGGER_JSON: /home/node/app/swagger.json
+
+  db:
+    hostname: db
+    image: mongo
+    volumes:
+      - db-data:/data/db
+
+  app: &app
+    <<: *base
+    hostname: app
+    command: npm run dev
+    environment: &env
+      NODE_ENV: development
+      NODE_PATH: "."
+      WL_CORS_EXPOSE_HEADERS: "access-token, expiry, token-type, uid, client, x-ws-token, correspondent_id, inner_authorization"
+      WL_CORS_HEADERS: "correspondent_id, access-token, client, expiry, token-type, uid, Origin, X-Requested-With, Content-Type, Accept, Authorization, inner_authorization"
+      WL_CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
+      WL_CORS_ORIGIN: "*"
+      WS_CORRESPONDENT: "http://docker.for.mac.localhost:3000/v1"
+    ports:
+      - "3000:80"
+    depends_on:
+      - db
+
+  debug:
+    <<: *app
+    command: npm run start:debug
+    ports:
+      - "3000:80"
+      - "9229:9229"
+
+  specs:
+    <<: *base
+    command: /bin/ash -c "npm test"
+    environment:
+      <<: *env
+      NODE_ENV: test
+      BASE_URL: "https://dummy.com.br/v1"
+      MONGO_URL: "mongodb://db:27017/"
+      NODE_PATH: "."
+      WAIT_POOLING_TIME: '1'
+    depends_on:
+      - db
+
+  lint:
+    <<: *base
+    command: /bin/ash -c "npm install && npm run lint"
