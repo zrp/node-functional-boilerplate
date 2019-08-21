@@ -1,2 +1,9 @@
 type Hero {
+  name: String,
+}
+
+type Query {
+  hero(
+    name: String,
+  ): Hero,
 }

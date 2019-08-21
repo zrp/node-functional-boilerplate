@@ -18,9 +18,10 @@ const {
   rootRouter,
   v1Router,
 } = require('./interfaces/http/routers');
+const apollo = require('./interfaces/http/graphQL/apollo');
 const context = require('./interfaces/http/graphQL/context');
-const server = require('./interfaces/http/server');
 const resolvers = require('./interfaces/http/graphQL/resolvers');
+const server = require('./interfaces/http/server');
 const typeDefs = require('./interfaces/http/graphQL/typeDefs');
 
 // Application layer imports
@@ -49,15 +50,16 @@ module.exports = createContainer()
   })
   // Interfaces layer registrations
   .register({
+    apollo: asFunction(apollo).singleton(),
     context: asFunction(context).singleton(),
-    resolvers: asFunction(resolvers).singleton(),
-    typeDefs: asFunction(typeDefs).singleton(),
-    healthCheckHandler: asFunction(healthCheckHandler).singleton(),
     corsMiddleware: asFunction(corsMiddleware).singleton(),
+    healthCheckHandler: asFunction(healthCheckHandler).singleton(),
     httpOptionsMiddleware: asFunction(httpOptionsMiddleware).singleton(),
     loggerMiddleware: asFunction(loggerMiddleware).singleton(),
-    server: asFunction(server).singleton(),
+    resolvers: asFunction(resolvers).singleton(),
     rootRouter: asFunction(rootRouter).singleton(),
+    server: asFunction(server).singleton(),
+    typeDefs: asFunction(typeDefs).singleton(),
     v1Router: asFunction(v1Router).singleton(),
   })
   // Application layer registrations
