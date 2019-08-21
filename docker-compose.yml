@@ -3,8 +3,6 @@ version: "3"
 volumes:
   db-data:
     driver: local
-  redis-data:
-    driver: local
 
 services:
   base: &base
@@ -43,8 +41,8 @@ services:
       NODE_ENV: development
       NODE_PATH: "."
       APOLLO_ROUTE: "graphql"
-      APOLLO_INSTROSPECTION: true
-      APOLLO_PLAYGROUND: true
+      APOLLO_INSTROSPECTION: "true"
+      APOLLO_PLAYGROUND: "true"
       EXPRESS_PORT: 3000
       CORS_EXPOSE_HEADERS: "x-ws-token"
       CORS_HEADERS: "Origin, X-Requested-With, Content-Type, Accept, Authorization"

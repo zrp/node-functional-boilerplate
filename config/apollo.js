@@ -1,5 +1,5 @@
 module.exports = {
   route: process.env.APOLLO_ROUTE,
-  introspection: process.env.APOLLO_INSTROSPECTION,
-  playground: process.env.APOLLO_PLAYGROUND,
+  introspection: Boolean(process.env.APOLLO_INSTROSPECTION),
+  playground: Boolean(process.env.APOLLO_PLAYGROUND),
 };
