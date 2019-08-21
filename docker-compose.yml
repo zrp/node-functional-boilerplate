@@ -38,15 +38,18 @@ services:
   app: &app
     <<: *base
     hostname: app
-    command: npm run dev
+    command: npm run start
     environment: &env
       NODE_ENV: development
       NODE_PATH: "."
-      WL_CORS_EXPOSE_HEADERS: "access-token, expiry, token-type, uid, client, x-ws-token, correspondent_id, inner_authorization"
-      WL_CORS_HEADERS: "correspondent_id, access-token, client, expiry, token-type, uid, Origin, X-Requested-With, Content-Type, Accept, Authorization, inner_authorization"
-      WL_CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
-      WL_CORS_ORIGIN: "*"
-      WS_CORRESPONDENT: "http://docker.for.mac.localhost:3000/v1"
+      APOLLO_ROUTE: "graphql"
+      APOLLO_INSTROSPECTION: true
+      APOLLO_PLAYGROUND: true
+      EXPRESS_PORT: 3000
+      CORS_EXPOSE_HEADERS: "x-ws-token"
+      CORS_HEADERS: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+      CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
+      CORS_ORIGIN: "*"
     ports:
       - "3000:80"
     depends_on:
