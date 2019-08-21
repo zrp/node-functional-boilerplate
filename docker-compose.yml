@@ -43,11 +43,12 @@ services:
       APOLLO_ROUTE: "graphql"
       APOLLO_INSTROSPECTION: "true"
       APOLLO_PLAYGROUND: "true"
-      EXPRESS_PORT: 3000
       CORS_EXPOSE_HEADERS: "x-ws-token"
       CORS_HEADERS: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
       CORS_ORIGIN: "*"
+      EXPRESS_PORT: 3000
+      DB_MONGO_URL: "mongodb://db:27017/application"
     ports:
       - "3000:80"
     depends_on:
