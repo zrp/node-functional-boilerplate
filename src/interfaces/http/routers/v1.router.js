@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 module.exports = ({
   apollo,
+  config: { apollo: apolloConfig },
   httpOptionsMiddleware,
   healthCheckHandler,
 }) => {
@@ -14,7 +15,7 @@ module.exports = ({
   // eslint-disable-next-line fp/no-unused-expression
   apollo.applyMiddleware({
     app: router,
-    path: '/v1/graphql',
+    path: `/${apolloConfig.route}`,
   });
 
   return router;
