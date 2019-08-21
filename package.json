@@ -4,7 +4,11 @@
   "description": "Node.JS Functional Boilerplate",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "tdd": "NODE_ENV=test jest --runInBand --watchAll",
+    "lint": "eslint . --ext .js --ignore-path .eslintignore; exit 0",
+    "lint:fix": "eslint . --ext .js --ignore-path .eslintignore --fix; exit 0"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
     "apollo-server-express": "^2.8.2",
     "awilix": "^4.2.2",
     "body-parser": "^1.19.0",
+    "cross-env": "^5.2.0",
     "express": "^4.17.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
@@ -40,6 +45,21 @@
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-fp": "^2.3.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "nodemon": "^1.19.1"
+  },
+  "jest": {
+    "coverageReporters": [
+      "text-summary",
+      "html"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/app/application.js",
+      "!src/interfaces/http/server.js",
+      "!src/interfaces/http/routers/*"
+    ]
   }
 }
