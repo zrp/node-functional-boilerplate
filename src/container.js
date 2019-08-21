@@ -6,10 +6,22 @@ const {
 const config = require('../config');
 
 // Interfaces layer imports
-const Server = require('./interfaces/http/Server');
+const {
+  healthCheckHandler,
+} = require('./interfaces/http/handlers');
+const {
+  corsMiddleware,
+  httpOptionsMiddleware,
+  loggerMiddleware,
+} = require('./interfaces/http/middleware');
+const server = require('./interfaces/http/server');
+const {
+  rootRouter,
+  v1Router,
+} = require('./interfaces/http/routers');
 
 // Application layer imports
-const Application = require('./app/Application');
+const application = require('./app/application');
 
 // Domain layer imports
 /*
@@ -21,10 +33,6 @@ const Application = require('./app/Application');
  * Imports here
  */
 
-// const { scopePerRequest } = require('awilix-express');
-
-// const router = require('./interfaces/http/router');
-// const loggerMiddleware = require('./interfaces/http/logging/loggerMiddleware');
 // const errorHandler = require('./interfaces/http/errors/errorHandler');
 // const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
 // const swaggerMiddleware = require('./interfaces/http/swagger/swaggerMiddleware');
@@ -38,11 +46,17 @@ module.exports = createContainer()
   })
   // Interfaces layer registrations
   .register({
-    server: asFunction(Server),
+    healthCheckHandler: asFunction(healthCheckHandler).singleton(),
+    corsMiddleware: asFunction(corsMiddleware).singleton(),
+    httpOptionsMiddleware: asFunction(httpOptionsMiddleware).singleton(),
+    loggerMiddleware: asFunction(loggerMiddleware).singleton(),
+    server: asFunction(server).singleton(),
+    rootRouter: asFunction(rootRouter).singleton(),
+    v1Router: asFunction(v1Router).singleton(),
   })
   // Application layer registrations
   .register({
-    app: asFunction(Application),
+    app: asFunction(application).singleton(),
   })
   // Domain layer registrations
   .register({
@@ -50,5 +64,5 @@ module.exports = createContainer()
   })
   // Infra layer registrations
   .register({
-
+    logger: asValue(console),
   });
