@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --config nodemon.json index.js",
+    "start:dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "coverage": "NODE_ENV=test jest --runInBand --coverage --forceExit",
     "tdd": "NODE_ENV=test jest --runInBand --watchAll",
     "lint": "eslint . --ext .js --ignore-path .eslintignore; exit 0",
     "lint:fix": "eslint . --ext .js --ignore-path .eslintignore --fix; exit 0"

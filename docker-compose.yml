@@ -38,7 +38,7 @@ services:
   app: &app
     <<: *base
     hostname: app
-    command: npm run start
+    command: npm run start:dev
     environment: &env
       NODE_ENV: development
       NODE_PATH: "."
@@ -68,13 +68,10 @@ services:
     environment:
       <<: *env
       NODE_ENV: test
-      BASE_URL: "https://dummy.com.br/v1"
-      MONGO_URL: "mongodb://db:27017/"
       NODE_PATH: "."
-      WAIT_POOLING_TIME: '1'
     depends_on:
       - db
 
   lint:
     <<: *base
-    command: /bin/ash -c "npm install && npm run lint"
+    command: /bin/ash -c "npm run lint"
