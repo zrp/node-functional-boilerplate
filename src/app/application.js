@@ -11,5 +11,7 @@ module.exports = ({
   config,
   server,
   mongoDb,
-}) => connectMongoDb(mongoDb, config)
-  .chain(() => startServer(server));
+}) => (
+  connectMongoDb(mongoDb, config)
+    .chain(() => startServer(server))
+);
