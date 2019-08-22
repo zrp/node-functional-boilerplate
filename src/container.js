@@ -33,9 +33,9 @@ const application = require('./app/application');
  */
 
 // Infra layer imports
-/*
- * Imports here
- */
+const {
+  mongoose,
+} = require('./infra/databases/mongo');
 
 // const errorHandler = require('./interfaces/http/errors/errorHandler');
 // const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
@@ -72,5 +72,6 @@ module.exports = createContainer()
   })
   // Infra layer registrations
   .register({
+    mongoDb: asFunction(mongoose).singleton(),
     logger: asValue(console),
   });
