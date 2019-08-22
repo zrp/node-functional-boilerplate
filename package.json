@@ -43,7 +43,8 @@
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
     "mongoose": "^5.6.10",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "eslint": "^6.1.0",
