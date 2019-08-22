@@ -1,9 +1,9 @@
 const apollo = require('./apollo');
 const express = require('./express');
-const mongoose = require('./mongoose');
+const mongoDb = require('./mongoDb');
 
 module.exports = {
   apollo,
   express,
-  mongoose,
+  mongoDb,
 };
