@@ -36,12 +36,14 @@ const application = require('./app/application');
 const {
   mongoose,
 } = require('./infra/databases/mongo');
-
-// const errorHandler = require('./interfaces/http/errors/errorHandler');
-// const devErrorHandler = require('./interfaces/http/errors/devErrorHandler');
-// const swaggerMiddleware = require('./interfaces/http/swagger/swaggerMiddleware');
-
-// const { logger } = require('./infra/logging/logger');
+const {
+  enumsModel,
+  heroModel,
+  villainModel,
+} = require('./infra/models');
+const {
+  mongooseUtils,
+} = require('./infra/utils');
 
 module.exports = createContainer()
   // Configuration registration
@@ -72,6 +74,10 @@ module.exports = createContainer()
   })
   // Infra layer registrations
   .register({
-    mongoDb: asFunction(mongoose).singleton(),
+    enumsModel: asFunction(enumsModel).singleton(),
+    heroModel: asFunction(heroModel).singleton(),
+    villainModel: asFunction(villainModel).singleton(),
+    mongoose: asFunction(mongoose).singleton(),
+    mongooseUtils: asFunction(mongooseUtils).singleton(),
     logger: asValue(console),
   });

@@ -10,8 +10,8 @@ const connectMongoDb = fromPromise(
 module.exports = ({
   config,
   server,
-  mongoDb,
+  mongoose,
 }) => (
-  connectMongoDb(mongoDb, config)
+  connectMongoDb(mongoose, config)
     .chain(() => startServer(server))
 );
