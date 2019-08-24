@@ -1,32 +1,32 @@
 # import PowerLevel from "enums.graphql"
-# import Villain from "villain.graphql"
+# import Hero from "hero.graphql"
 
-type Hero {
+type Villain {
   name: String
   superpower: String
   powerLevel: PowerLevel
-  baseOperations: String
-  archenemy: Villain
+  lair: String
+  rival: Hero
 }
 
-input HeroFilter {
+input VillainFilter {
   superpower: [String]
   powerLevel: [PowerLevel]
-  baseOperations: [String]
+  lair: [String]
 }
 
 type Query {
-  allHeroes(filter: HeroFilter): [Hero]
-  heroByName(name: String!): Hero
+  allVillains(filter: VillainFilter): [Villain]
+  villainByName(name: String!): Villain
 }
 
 type Mutation {
-  addHero(
+  addVillain(
     name: String!,
     superpower: String!,
     powerLevel: PowerLevel!,
-    baseOperations: String,
-    archenemy: Villain,
+    lair: String,
+    rival: Hero,
   ): Hero
 
   updateHero(
@@ -34,7 +34,7 @@ type Mutation {
     superpower: String,
     powerLevel: PowerLevel,
     baseOperations: String,
-    archenemy: Villain,
+    rival: Hero,
   ): Hero
 
   deleteHero(name: String!): Boolean

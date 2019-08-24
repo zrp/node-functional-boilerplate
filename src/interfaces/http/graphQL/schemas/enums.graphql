@@ -1,0 +1,7 @@
+enum PowerLevel {
+  S
+  A
+  B
+  C
+  D
+}
