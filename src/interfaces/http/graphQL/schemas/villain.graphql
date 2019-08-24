@@ -26,16 +26,18 @@ type Mutation {
     superpower: String!,
     powerLevel: PowerLevel!,
     lair: String,
-    rival: Hero,
-  ): Hero
+  ): Villain
 
-  updateHero(
+  updateVillain(
     name: String!,
     superpower: String,
     powerLevel: PowerLevel,
-    baseOperations: String,
-    rival: Hero,
-  ): Hero
+    lair: String,
+  ): Villain
 
-  deleteHero(name: String!): Boolean
+  deleteVillain(name: String!): Boolean
+
+  assignRival(heroName: String!): Villain
+  updateRival(heroName: String!): Villain
 }
+

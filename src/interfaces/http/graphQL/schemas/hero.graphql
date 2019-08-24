@@ -6,7 +6,7 @@ type Hero {
   superpower: String
   powerLevel: PowerLevel
   baseOperations: String
-  archenemy: Villain
+  archEnemy: Villain
 }
 
 input HeroFilter {
@@ -26,7 +26,6 @@ type Mutation {
     superpower: String!,
     powerLevel: PowerLevel!,
     baseOperations: String,
-    archenemy: Villain,
   ): Hero
 
   updateHero(
@@ -34,8 +33,10 @@ type Mutation {
     superpower: String,
     powerLevel: PowerLevel,
     baseOperations: String,
-    archenemy: Villain,
   ): Hero
 
   deleteHero(name: String!): Boolean
+
+  assignArchEnemy(villainName: String!): Hero
+  updateArchEnemy(villainName: String!): Hero
 }
