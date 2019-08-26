@@ -23,6 +23,12 @@ const context = require('./interfaces/http/graphQL/context');
 const resolvers = require('./interfaces/http/graphQL/resolvers');
 const server = require('./interfaces/http/server');
 const typeDefs = require('./interfaces/http/graphQL/typeDefs');
+const {
+  heroMutations,
+} = require('./interfaces/http/graphQL/resolvers/mutations');
+const {
+  heroQueries,
+} = require('./interfaces/http/graphQL/resolvers/queries');
 
 // Application layer imports
 const application = require('./app/application');
@@ -68,6 +74,8 @@ module.exports = createContainer()
     server: asFunction(server).singleton(),
     typeDefs: asFunction(typeDefs).singleton(),
     v1Router: asFunction(v1Router).singleton(),
+    heroMutations: asFunction(heroMutations).singleton(),
+    heroQueries: asFunction(heroQueries).singleton(),
   })
   // Application layer registrations
   .register({
