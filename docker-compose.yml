@@ -47,7 +47,7 @@ services:
       CORS_HEADERS: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
       CORS_ORIGIN: "*"
-      EXPRESS_PORT: 3000
+      EXPRESS_PORT: 80
       DB_MONGO_URL: "mongodb://db:27017/application"
     ports:
       - "3000:80"
