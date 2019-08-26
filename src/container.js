@@ -27,6 +27,11 @@ const typeDefs = require('./interfaces/http/graphQL/typeDefs');
 // Application layer imports
 const application = require('./app/application');
 
+const {
+  CreateHero,
+  GetAllHeros,
+} = require('./app/hero');
+
 // Domain layer imports
 const { EnumsEntity } = require('./domain');
 
@@ -65,6 +70,8 @@ module.exports = createContainer()
   // Application layer registrations
   .register({
     app: asFunction(application).singleton(),
+    createHero: asFunction(CreateHero),
+    getAllHeros: asFunction(GetAllHeros),
   })
   // Domain layer registrations
   .register({
