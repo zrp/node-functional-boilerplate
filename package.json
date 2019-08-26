@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
   "dependencies": {
+    "@hapi/joi": "^15.1.1",
     "apollo-server-express": "^2.8.2",
     "awilix": "^4.2.2",
     "body-parser": "^1.19.0",
@@ -47,6 +48,7 @@
     "morgan": "^1.9.1"
   },
   "devDependencies": {
+    "@types/joi": "^14.3.3",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-fp": "^2.3.0",

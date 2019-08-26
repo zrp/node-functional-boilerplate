@@ -3,4 +3,5 @@ enum PowerLevel {
   A
   B
   C
+  D
 }

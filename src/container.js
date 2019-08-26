@@ -28,9 +28,7 @@ const typeDefs = require('./interfaces/http/graphQL/typeDefs');
 const application = require('./app/application');
 
 // Domain layer imports
-/*
- * Imports here
- */
+const { EnumsEntity } = require('./domain');
 
 // Infra layer imports
 const {
@@ -70,7 +68,7 @@ module.exports = createContainer()
   })
   // Domain layer registrations
   .register({
-
+    enumsEntity: asValue(EnumsEntity),
   })
   // Infra layer registrations
   .register({
