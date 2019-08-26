@@ -1,18 +1,16 @@
-const Async = require('crocks/Async');
+const { fromPromise } = require('crocks/Async');
 
 const MongooseHeroRepository = ({
   heroModel,
 }) => ({
-  add: (heroData) => Async((reject, resolve) => {
-    const { fromPromise } = Async;
-    const createHero = fromPromise(heroModel.create());
-    return createHero(heroData).fork(reject, resolve);
-  }),
-  getAll: () => Async((reject, resolve) => {
-    const { fromPromise } = Async;
-    const getAllHeros = fromPromise(heroModel.findAll());
-    return getAllHeros().fork(reject, resolve);
-  }),
+  add: (heroData) => {
+    const createHero = fromPromise(heroModel.create);
+    return createHero(heroData);
+  },
+  getAll: () => {
+    const getAllHeros = fromPromise(heroModel.findAll);
+    return getAllHeros();
+  },
 });
 
 module.exports = MongooseHeroRepository;

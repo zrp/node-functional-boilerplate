@@ -13,7 +13,7 @@ const createHero = ({
   const { Just, Nothing } = Maybe;
   const validateHero = (data) => heroDomain.validate(data);
 
-  const ensureValidData = ({ ERROR, OK }) => ifElse(isDefined(ERROR), Nothing, () => Just(OK));
+  // const ensureValidData = ({ ERROR, OK }) => ifElse(isDefined(ERROR), Nothing, () => Just(OK));
 
   const forkAddOperation = (data) => heroRepository.add(data).fork(reject, resolve);
 
