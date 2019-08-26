@@ -1,14 +1,14 @@
 const { fromPromise } = require('crocks/Async');
 
 const MongooseHeroRepository = ({
-  heroModel,
+  HeroModel,
 }) => ({
   add: (heroData) => {
-    const createHero = fromPromise(heroModel.create);
+    const createHero = fromPromise((data) => HeroModel.create(data));
     return createHero(heroData);
   },
   getAll: () => {
-    const getAllHeros = fromPromise(heroModel.findAll);
+    const getAllHeros = fromPromise(() => HeroModel.find());
     return getAllHeros();
   },
 });

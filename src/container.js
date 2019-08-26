@@ -34,7 +34,7 @@ const {
 const application = require('./app/application');
 const {
   CreateHero,
-  GetAllHeros,
+  GetAllHeroes,
 } = require('./app/hero');
 
 // Domain layer imports
@@ -44,17 +44,14 @@ const {
 } = require('./domain');
 
 // Infra layer imports
+
 const {
-  mongoose,
-} = require('./infra/databases/mongo');
-const {
-  enumsModel,
-  heroModel,
-  villainModel,
-} = require('./infra/models');
-const {
-  mongooseUtils,
-} = require('./infra/utils');
+  database,
+  Hero: HeroModel,
+} = require('./infra/database/models');
+
+
+const MongooseHeroRepository = require('./infra/repositories/hero/MongooseHeroRepository');
 
 module.exports = createContainer()
   // Configuration registration
@@ -80,8 +77,8 @@ module.exports = createContainer()
   // Application layer registrations
   .register({
     app: asFunction(application).singleton(),
-    createHero: asFunction(CreateHero),
-    getAllHeros: asFunction(GetAllHeros),
+    createHero: asFunction(CreateHero).singleton(),
+    getAllHeroes: asFunction(GetAllHeroes).singleton(),
   })
   // Domain layer registrations
   .register({
@@ -90,10 +87,8 @@ module.exports = createContainer()
   })
   // Infra layer registrations
   .register({
-    enumsModel: asFunction(enumsModel).singleton(),
-    heroModel: asFunction(heroModel).singleton(),
-    villainModel: asFunction(villainModel).singleton(),
-    mongoose: asFunction(mongoose).singleton(),
-    mongooseUtils: asFunction(mongooseUtils).singleton(),
+    database: asValue(database),
+    HeroModel: asValue(HeroModel),
     logger: asValue(console),
+    heroRepository: asFunction(MongooseHeroRepository).singleton(),
   });

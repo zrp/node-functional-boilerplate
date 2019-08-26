@@ -5,7 +5,7 @@ const { isNil } = require('crocks/predicates');
 const { Err, Ok } = Result;
 
 module.exports = ({
-  EnumsEntity: { PowerLevel },
+  enumsEntity: { PowerLevel },
 }) => {
   const powerLevelEnum = Object.keys(PowerLevel);
   const heroSchema = Joi.object().keys({

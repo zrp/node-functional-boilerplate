@@ -50,7 +50,7 @@ services:
       EXPRESS_PORT: 80
       DB_MONGO_URL: "mongodb://db:27017/application"
     ports:
-      - "3000:80"
+      - "3007:80"
     depends_on:
       - db
 

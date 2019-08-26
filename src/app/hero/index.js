@@ -1,7 +1,7 @@
 const CreateHero = require('./CreateHero');
-const GetAllHeros = require('./GetAllHeros');
+const GetAllHeroes = require('./GetAllHeroes');
 
 module.exports = {
   CreateHero,
-  GetAllHeros,
+  GetAllHeroes,
 };
