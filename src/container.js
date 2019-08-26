@@ -26,14 +26,16 @@ const typeDefs = require('./interfaces/http/graphQL/typeDefs');
 
 // Application layer imports
 const application = require('./app/application');
-
 const {
   CreateHero,
   GetAllHeros,
 } = require('./app/hero');
 
 // Domain layer imports
-const { EnumsEntity } = require('./domain');
+const {
+  EnumsEntity,
+  HeroDomain,
+} = require('./domain');
 
 // Infra layer imports
 const {
@@ -76,6 +78,7 @@ module.exports = createContainer()
   // Domain layer registrations
   .register({
     enumsEntity: asValue(EnumsEntity),
+    heroDomain: asFunction(HeroDomain).singleton(),
   })
   // Infra layer registrations
   .register({

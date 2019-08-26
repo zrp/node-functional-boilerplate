@@ -1,7 +1,7 @@
 const EnumsEntity = require('./Enums.module');
-const HeroModule = require('./Hero.module');
+const HeroDomain = require('./Hero.module');
 
 module.exports = {
   EnumsEntity,
-  HeroModule,
+  HeroDomain,
 };

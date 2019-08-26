@@ -21,7 +21,7 @@ type Query {
 }
 
 type Mutation {
-  addHero(
+  createHero(
     name: String!,
     superpower: String!,
     powerLevel: PowerLevel!,

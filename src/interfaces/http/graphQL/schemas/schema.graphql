@@ -1,1 +1,3 @@
-# import Query.* from "hero.graphql"
+# import PowerLevel from "enums.graphql"
+# import Query.*, Mutation.* from "hero.graphql"
+# import Query.*, Mutation.* from "villain.graphql"
