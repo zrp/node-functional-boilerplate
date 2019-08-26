@@ -1,5 +1,5 @@
 module.exports = ({
   getAllHeros,
 }) => ({
-  allHeros: () => getAllHeros(),
+  allHeros: () => getAllHeros().toPromise(),
 });
