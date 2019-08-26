@@ -11,14 +11,10 @@ const createHero = ({
   heroDomain,
 }, heroData) => Async((reject, resolve) => {
   const { Just, Nothing } = Maybe;
-  const validateHero = (data) => heroDomain.validate(data);
+  const forkAddOperation = (data) => heroRepository.add(data).fork(reject, resolve);
+  const executeOperation = (data) => heroDomain.validate(data).biMap(reject, forkAddOperation);
 
   // const ensureValidData = ({ ERROR, OK }) => ifElse(isDefined(ERROR), Nothing, () => Just(OK));
-
-  const forkAddOperation = (data) => heroRepository.add(data).fork(reject, resolve);
-
-  const executeOperation = either(reject, forkAddOperation);
-
   return pipe(validateHero, ensureValidData, executeOperation, heroData);
 });
 
