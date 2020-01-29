@@ -1,17 +1,11 @@
-const Async = require('crocks/Async');
-
-const { fromPromise } = Async;
-
-const startServer = (server) => Async.Resolved(server.start());
-const connectMongoDb = fromPromise(
-  (db, { mongoDb: config }) => db.connect(encodeURI(config.url), { useNewUrlParser: true }),
-);
+const startServer = server => server.start();
+const connectMongoDb = (db, { mongoDb: config }) => db.connect(encodeURI(config.url), { useNewUrlParser: true });
 
 module.exports = ({
   config,
   server,
   mongoose,
 }) => (
-  connectMongoDb(mongoose, config)
-    .chain(() => startServer(server))
+  connectMongoDb(mongoose, config).then(startServer(server))
 );
+
