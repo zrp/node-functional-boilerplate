@@ -1,5 +1,6 @@
-const startServer = server => server.start();
-const connectMongoDb = (db, { mongoDb: config }) => db.connect(encodeURI(config.url), { useNewUrlParser: true });
+const startServer = (server) => server.start();
+const connectMongoDb = (db, { mongoDb: config }) => db
+  .connect(encodeURI(config.url), { useNewUrlParser: true });
 
 module.exports = ({
   config,
@@ -8,4 +9,3 @@ module.exports = ({
 }) => (
   connectMongoDb(mongoose, config).then(startServer(server))
 );
-
