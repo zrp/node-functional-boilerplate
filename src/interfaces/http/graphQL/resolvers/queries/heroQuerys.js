@@ -1,5 +1,9 @@
 module.exports = ({
-  getAllHeros,
+  getAllHeroes,
 }) => ({
-  allHeros: () => getAllHeros().toPromise(),
+  allHeroes: async () => {
+    const result = await getAllHeroes().toPromise();
+    console.log("​result", result);
+    return result;
+  },
 });

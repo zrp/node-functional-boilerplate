@@ -5,7 +5,7 @@ const connectMongoDb = (db, { mongoDb: config }) => db
 module.exports = ({
   config,
   server,
-  mongoose,
+  database,
 }) => (
-  connectMongoDb(mongoose, config).then(startServer(server))
+  connectMongoDb(database, config).then(startServer(server))
 );
