@@ -18,7 +18,7 @@ const HeroSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  superpower: {
+  superPower: {
     type: String,
     required: true,
   },

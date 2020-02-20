@@ -17,7 +17,7 @@ const validations = {
     const hasPowerLevel = getPropOr(false)(powerLevel, PowerLevels);
     return (hasPowerLevel)
       ? Ok(domain)
-      : Err('Don\'t have the Astral Hammer');
+      : Err('Invalid power level');
   },
 };
 

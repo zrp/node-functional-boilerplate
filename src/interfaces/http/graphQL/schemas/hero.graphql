@@ -3,16 +3,18 @@
 
 type Hero {
   name: String
-  superpower: String
+  superPower: String
   powerLevel: PowerLevel
   baseOperations: String
   archEnemy: Villain
+  weapon: String,
 }
 
 input HeroFilter {
-  superpower: [String]
+  superPower: [String]
   powerLevel: [PowerLevel]
   baseOperations: [String]
+  weapon: String,
 }
 
 type Query {
@@ -23,16 +25,18 @@ type Query {
 type Mutation {
   createHero(
     name: String!,
-    superpower: String!,
+    superPower: String!,
     powerLevel: PowerLevel!,
     baseOperations: String,
+    weapon: String,
   ): Hero
 
   updateHero(
     name: String!,
-    superpower: String,
+    superPower: String,
     powerLevel: PowerLevel,
     baseOperations: String,
+    weapon: String,
   ): Hero
 
   deleteHero(name: String!): Boolean

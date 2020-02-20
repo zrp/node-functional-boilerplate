@@ -10,6 +10,7 @@ if (process.env.DB_MONGO_URL) {
   });
 } else {
   /* eslint-disable no-console */
+  // eslint-disable-next-line fp/no-unused-expression
   console.error('Database config file log found, disabling database.');
   /* eslint-enable no-console */
 }

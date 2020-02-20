@@ -3,14 +3,14 @@
 
 type Villain {
   name: String
-  superpower: String
+  superPower: String
   powerLevel: PowerLevel
   lair: String
   rival: Hero
 }
 
 input VillainFilter {
-  superpower: [String]
+  superPower: [String]
   powerLevel: [PowerLevel]
   lair: [String]
 }
@@ -23,14 +23,14 @@ type Query {
 type Mutation {
   addVillain(
     name: String!,
-    superpower: String!,
+    superPower: String!,
     powerLevel: PowerLevel!,
     lair: String,
   ): Villain
 
   updateVillain(
     name: String!,
-    superpower: String,
+    superPower: String,
     powerLevel: PowerLevel,
     lair: String,
   ): Villain
