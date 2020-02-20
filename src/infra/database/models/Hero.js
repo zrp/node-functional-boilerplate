@@ -26,6 +26,7 @@ const HeroSchema = new mongoose.Schema({
     type: String,
     enum: Object.keys(PowerLevelEnum),
   },
+  weapon: String,
   baseOperations: String,
 }, options);
 

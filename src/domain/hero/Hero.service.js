@@ -21,7 +21,7 @@ const validations = {
   },
 };
 
-const validateHero = (domain) => validateUtil(domain, Object.values(validations));
+const validateHero = validateUtil(Object.values(validations));
 
 const addSuperPower = (domain, newSuperPower) => {
   const newSuperPowers = [...domain.superPowers, newSuperPower];
@@ -30,6 +30,7 @@ const addSuperPower = (domain, newSuperPower) => {
     superPowers: newSuperPowers,
   };
 };
+
 
 module.exports = {
   validateHero,
