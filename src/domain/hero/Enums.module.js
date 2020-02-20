@@ -1,4 +1,4 @@
-const PowerLevel = {
+const PowerLevels = {
   S: 'S',
   A: 'A',
   B: 'B',
@@ -7,5 +7,5 @@ const PowerLevel = {
 };
 
 module.exports = {
-  PowerLevel,
+  PowerLevels,
 };

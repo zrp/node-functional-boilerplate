@@ -2,6 +2,6 @@ const Async = require('crocks/Async');
 
 const getAllHeros = ({
   heroRepository,
-}) => Async((reject, reseolve) => heroRepository.getAll().fork(reject, reseolve));
+}) => Async((reject, resolve) => heroRepository.getAll().fork(reject, resolve));
 
 module.exports = getAllHeros;

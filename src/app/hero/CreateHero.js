@@ -4,8 +4,13 @@ const resultToAsync = require('crocks/Async/resultToAsync');
 const { Resolved } = Async;
 
 module.exports = ({
-  heroDomain,
+  heroDomainFactory,
+  heroDomainService,
   heroRepository,
-}) => (hero) => Resolved(hero)
-  .chain(resultToAsync(heroDomain.validate))
-  .chain(heroRepository.add);
+}) => (heroData) => {
+  const { validateHero } = heroDomainService;
+
+  return Resolved(heroDomainFactory(heroData))
+    .chain(resultToAsync(validateHero))
+    .chain(heroRepository.add);
+};

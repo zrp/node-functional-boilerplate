@@ -40,8 +40,9 @@ const {
 // Domain layer imports
 const {
   EnumsEntity,
-  HeroDomain,
-} = require('./domain');
+  HeroDomainService,
+  HeroDomainFactory,
+} = require('./domain/hero');
 
 // Infra layer imports
 const {
@@ -86,7 +87,8 @@ module.exports = createContainer()
   // Domain layer registrations
   .register({
     enumsEntity: asValue(EnumsEntity),
-    heroDomain: asFunction(HeroDomain).singleton(),
+    heroDomainFactory: asFunction(HeroDomainFactory).singleton(),
+    heroDomainService: asValue(HeroDomainService),
   })
   // Infra layer registrations
   .register({
