@@ -41,7 +41,6 @@ const {
 const {
   EnumsEntity,
   HeroDomainService,
-  HeroDomainFactory,
 } = require('./domain/hero');
 
 // Infra layer imports
@@ -84,7 +83,6 @@ module.exports = createContainer()
   // Domain layer registrations
   .register({
     enumsEntity: asValue(EnumsEntity),
-    heroDomainFactory: asFunction(HeroDomainFactory).singleton(),
     heroDomainService: asValue(HeroDomainService),
   })
   // Infra layer registrations

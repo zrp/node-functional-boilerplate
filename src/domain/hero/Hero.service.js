@@ -1,6 +1,6 @@
 const Result = require('crocks/Result');
 const getPropOr = require('crocks/helpers/getPropOr');
-const validateUtil = require('../utils/validate');
+// const { createDomainValidate } = require('../utils/createDomainFactory');
 const { PowerLevels } = require('./Enums.module');
 
 const { Err, Ok } = Result;
@@ -21,7 +21,7 @@ const validations = {
   },
 };
 
-const validateHero = validateUtil(Object.values(validations));
+const validateHero = createDomainValidate(Object.values(validations));
 
 const addSuperPower = (domain, newSuperPower) => {
   const newSuperPowers = [...domain.superPowers, newSuperPower];
