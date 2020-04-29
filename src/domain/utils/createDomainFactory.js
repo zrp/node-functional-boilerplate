@@ -77,18 +77,19 @@ const resolveCustomValidations = curry(
 
 const mergeValidations = curry((schemaValidationsResult, customValidationsResult) => {
   const result = [...customValidationsResult, ...schemaValidationsResult]
-    .reduce((validationResultAcc, validationResultCurr) => (
-      !(validationResultAcc.hasError || validationResultCurr.hasError)
-        ? { errors: [...validationResultAcc.errors], hasError: false }
-        : !(isNil(validationResultCurr.error))
-          ? { errors: [...validationResultAcc.errors, validationResultCurr.error], hasError: true }
-          : { errors: [...validationResultAcc.errors], hasError: true }
+    .reduce((acc, curr) => (
+      !(acc.hasError || curr.hasError)
+        ? { errors: [...acc.errors], hasError: false }
+        : !(isNil(curr.error))
+          ? { errors: [...acc.errors, curr.error], hasError: true }
+          : { errors: [...acc.errors], hasError: true }
     ), { errors: [], hasError: false });
 
   return result;
 });
 
-const createValidations = (schema) => (validations = []) => (domain) => {
+const createValidations = (schema) => (validationsObj = {}) => (domain) => {
+  const validations = Object.values(validationsObj);
   const partialMergeValidations = compose(mergeValidations, resolveSchemaValidations(domain));
   const mergedValidations = compose(
     partialMergeValidations(schema),
@@ -105,9 +106,12 @@ const createDomainFactory = (schema) => (params = {}) => {
   const domain = keys
     .reduce((obj, k) => ({ ...obj, [k]: params[k] }), {});
 
+  const createDomainValidate = createValidations(schema);
+	console.log("​createDomainFactory -> createDomainValidate", createDomainValidate);
+
   return {
     domain,
-    createDomainValidate: createValidations(schema),
+    createDomainValidate,
   };
 };
 

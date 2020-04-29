@@ -1,7 +1,7 @@
 const createDomainFactory = require('../utils/createDomainFactory');
 
 module.exports = () => {
-  const superHeroSchema = {
+  const heroSchema = {
     name: {
       required: true,
       type: 'String',
@@ -24,9 +24,12 @@ module.exports = () => {
     },
   };
 
-  const { domain: heroDomain, createDomainValidate } = createDomainFactory(superHeroSchema);
+  const {
+    domain: HeroDomainFactory,
+    createDomainValidate: createHeroDomainValidate,
+  } = createDomainFactory(heroSchema);
   return {
-    heroDomain,
-    createDomainValidate,
+    HeroDomainFactory,
+    createHeroDomainValidate,
   };
 };
