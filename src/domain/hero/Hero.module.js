@@ -1,23 +1,24 @@
-const createDomainFactory = require('../utils/createDomainFactory');
+const pipe = require('crocks/helpers/pipe');
+const {
+  object,
+  string,
+  enums,
+  struct,
+  optional,
+  array,
+} = require('superstruct');
 
-module.exports = () => {
-  const superHeroSchema = {
-    name: {
-      required: true,
-    },
-    superPower: {
-      required: true,
-    },
-    powerLevel: {
-      required: true,
-    },
-    baseOperations: {
-      required: true,
-    },
-    weapon: {
-      required: true,
-    },
-  };
+const hasAstralHammer = (value) => value === 'Astral Hammer';
+const Weapon = struct('Weapon', hasAstralHammer);
+const baseOperations = pipe(string, optional);
+const superPower = pipe(string, array);
 
-  return createDomainFactory(superHeroSchema);
-};
+
+const Hero = object({
+  superPowers: superPower(),
+  powerLevel: enums(['S', 'A', 'B', 'C', 'D']),
+  baseOperations: baseOperations(),
+  weapon: Weapon,
+});
+
+module.exports = Hero;

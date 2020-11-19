@@ -46,6 +46,7 @@ Anyone is welcome to contribute! Please fell free to make any pull resquests, or
 - [GraphQL](https://graphql.org/)
 - [MongoDB](https://mongodb.com/)
 - [Crocks](https://www.npmjs.com/package/crocks)
+- [Superstruct](https://github.com/ianstormtaylor/superstruct)
 - [Docker](https://docs.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Apollo Server](https://www.npmjs.com/package/apollo-server)
