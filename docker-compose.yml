@@ -1,76 +1,36 @@
-version: "3"
+version: "3.8"
 
 volumes:
-  db-data:
-    driver: local
+  mongo-data:
 
 services:
-  base: &base
-    hostname: base
-    image: node:functional-boilerplate
-    ports: []
-    stdin_open: true
-    tty: true
+  app:
     build:
       context: .
-      dockerfile: dev.Dockerfile
+      target: development
+      args:
+        APP_PATH: /home/node/app
+    env_file: .env.example
+    stdin_open: true
+    tty: true
     volumes:
-      - .:/home/node/app
-
-  swagger:
-    hostname: swagger
-    image: swaggerapi/swagger-ui
+      - ./:/home/node/app
+      - /home/node/app/node_modules
     ports:
-      - 5003:8080
-    volumes:
-      - ./swagger.json:/home/node/app/swagger.json
-    environment:
-      SWAGGER_JSON: /home/node/app/swagger.json
-
-  db:
-    hostname: db
+      - 3000:3000
+      - 9229
+    depends_on:
+      - mongo-db
+  
+  mongo-db:
+    hostname: mongo
     image: mongo
+    restart: always
     volumes:
-      - db-data:/data/db
-
-  app: &app
-    <<: *base
-    hostname: app
-    command: npm run start:dev
-    environment: &env
-      NODE_ENV: development
-      NODE_PATH: "."
-      APOLLO_ROUTE: "graphql"
-      APOLLO_INSTROSPECTION: "true"
-      APOLLO_PLAYGROUND: "true"
-      CORS_EXPOSE_HEADERS: "x-ws-token"
-      CORS_HEADERS: "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-      CORS_METHODS: "GET, POST, PUT, OPTIONS, PATCH, DELETE"
-      CORS_ORIGIN: "*"
-      EXPRESS_PORT: 80
-      DB_MONGO_URL: "mongodb://db:27017/application"
-    ports:
-      - "3007:80"
-    depends_on:
-      - db
-
-  debug:
-    <<: *app
-    command: npm run start:debug
-    ports:
-      - "3000:80"
-      - "9229:9229"
-
-  specs:
-    <<: *base
-    command: /bin/ash -c "npm test"
-    environment:
-      <<: *env
-      NODE_ENV: test
-      NODE_PATH: "."
-    depends_on:
-      - db
-
-  lint:
-    <<: *base
-    command: /bin/ash -c "npm run lint"
+      - mongo-data:/data/db
+    healthcheck:
+      test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin --quiet | grep 1
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
