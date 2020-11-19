@@ -51,7 +51,6 @@ const {
   Hero: HeroModel,
 } = require('./infra/database/models');
 
-
 const MongooseHeroRepository = require('./infra/repositories/hero/MongooseHeroRepository');
 
 module.exports = createContainer()

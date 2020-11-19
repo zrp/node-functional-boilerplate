@@ -13,7 +13,6 @@ const Weapon = struct('Weapon', hasAstralHammer);
 const baseOperations = pipe(string, optional);
 const superPower = pipe(string, array);
 
-
 const Hero = object({
   superPowers: superPower(),
   powerLevel: enums(['S', 'A', 'B', 'C', 'D']),

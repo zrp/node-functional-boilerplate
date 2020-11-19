@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const PowerLevelEnum = {
   S: 'S',
   A: 'A',
