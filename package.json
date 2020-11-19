@@ -3,15 +3,16 @@
   "version": "0.0.1",
   "description": "Node.JS Functional Boilerplate",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --config nodemon.json index.js",
-    "start:dev": "cross-env NODE_PATH=. NODE_ENV=development nodemon",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
-    "coverage": "NODE_ENV=test jest --runInBand --coverage --forceExit",
-    "tdd": "NODE_ENV=test jest --runInBand --watchAll",
-    "lint": "eslint . --ext .js --ignore-path .eslintignore; exit 0",
-    "lint:fix": "eslint . --ext .js --ignore-path .eslintignore --fix; exit 0"
+  "license": "MIT",
+  "author": "ZRP Aplicações <zrp@zrp.com.br>",
+  "contributors": [
+    "Giovanni Armane <giovanniarmane@gmail.com>",
+    "Gustavo Rodarte <guga.rodarte@live.com >",
+    "Pedro Gryzinsky <p@zrp.com.br>"
+  ],
+  "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
+  "bugs": {
+    "url": "https://github.com/zrpaplicacoes/node-functional-boilerplate/issues"
   },
   "repository": {
     "type": "git",
@@ -25,22 +26,21 @@
     "javascript",
     "zrp"
   ],
-  "author": "ZRP Aplicações <zrp@zrp.com.br>",
-  "contributors": [
-    "Giovanni Armane <giovanniarmane@gmail.com>",
-    "Gustavo Rodarte <guga.rodarte@live.com >"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zrpaplicacoes/node-functional-boilerplate/issues"
+  "scripts": {
+    "start": "node index.js",
+    "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --config nodemon.json index.js",
+    "start:dev": "nodemon --inspect=0.0.0.0:9229 --config nodemon.json index.js",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
+    "coverage": "NODE_ENV=test jest --runInBand --coverage --forceExit",
+    "tdd": "NODE_ENV=test jest --runInBand --watchAll",
+    "lint": "eslint . --ext .js --ignore-path .eslintignore; exit 0",
+    "lint:fix": "eslint . --ext .js --ignore-path .eslintignore --fix; exit 0"
   },
-  "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
   "dependencies": {
     "apollo-server-express": "^2.10.1",
     "awilix": "^4.2.4",
     "body-parser": "^1.19.0",
     "crocks": "^0.12.4",
-    "cross-env": "^5.2.1",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "graphql-import": "^0.7.1",
@@ -59,6 +59,11 @@
     "jest": "^24.9.0",
     "nodemon": "^1.19.4"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "jest": {
     "coverageReporters": [
       "text-summary",
@@ -76,11 +81,6 @@
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "pre-push": "eslint . --ext .js --ignore-path .eslintignore"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
