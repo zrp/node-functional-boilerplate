@@ -1,4 +1,3 @@
-  
 *~
 *.sw[mnpcod]
 *.log
@@ -9,7 +8,6 @@ log.txt
 *.sublime-workspace
 .vscode/
 npm-debug.log*
-
 .idea/
 .sass-cache/
 .tmp/
@@ -27,10 +25,10 @@ plugins/ios.json
 www/
 $RECYCLE.BIN/
 .vs_code/
-
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
 .gitignore
-dev.Dockerfile
+.git
+*Dockerfile*
 docker-compose.yml
