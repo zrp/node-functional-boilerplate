@@ -1,10 +1,15 @@
-const Result = require('crocks/Result');
+const { Ok, Err } = require('crocks/Result');
+const { validate } = require('superstruct');
 
-const { Ok } = Result;
+const mapStructError = ({
+  failures,
+}) => [...failures()]
+  .map(({ path, value, type }) => `"${path}" with ${value} is invalid, expected type is: ${type}`);
 
-const validate = (validations = []) => (domain) => (
-  validations.reduce((acc, curr) => acc.chain(curr), Ok(domain))
-);
+const validateDomain = (struct) => (domainData) => {
+  const [error, value] = validate(domainData, struct);
+  return error ? Err(mapStructError(error)) : Ok(value);
+};
 
 
-module.exports = validate;
+module.exports = validateDomain;

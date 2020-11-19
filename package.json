@@ -45,7 +45,8 @@
     "graphql": "^14.6.0",
     "graphql-import": "^0.7.1",
     "mongoose": "^5.9.2",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "superstruct": "^0.10.12"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -63,18 +64,6 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "jest": {
-    "coverageReporters": [
-      "text-summary",
-      "html"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.js",
-      "!src/app/application.js",
-      "!src/interfaces/http/server.js",
-      "!src/interfaces/http/routers/*"
-    ]
   },
   "husky": {
     "hooks": {
