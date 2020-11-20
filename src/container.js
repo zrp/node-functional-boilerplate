@@ -83,7 +83,7 @@ module.exports = createContainer()
   // Domain layer registrations
   .register({
     enumsEntity: asValue(EnumsEntity),
-    heroDomainFactory: asFunction(HeroDomainFactory).singleton(),
+    heroDomainFactory: asValue(HeroDomainFactory),
     heroDomainService: asValue(HeroDomainService),
   })
   // Infra layer registrations
