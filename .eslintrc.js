@@ -1,11 +1,14 @@
 module.exports = {
   env: {
-    browser: true,
     commonjs: true,
     es6: true,
+    node: true,
+    jest: true,
   },
   extends: [
     'airbnb-base',
+    'plugin:jest/recommended',
+    'plugin:jest/style',
   ],
   globals: {
     Atomics: 'readonly',
@@ -16,8 +19,30 @@ module.exports = {
   },
   plugins: [
     'fp',
+    'jest',
+    'disable',
   ],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: '.',
+      },
+    },
+  },
   rules: {
+    'no-var': 'error',
+
+    // jest-rules
+    'jest/consistent-test-it': ['error', {
+      fn: 'test',
+    }],
+    'jest/no-conditional-expect': 2,
+    'jest/no-deprecated-functions': 2,
+    'jest/prefer-strict-equal': 2,
+    'jest/require-to-throw-message': 2,
+    'jest/valid-title': 2,
+
+    // fp-rules
     'fp/no-arguments': 'error',
     'fp/no-class': 'error',
     'fp/no-delete': 'error',
@@ -37,6 +62,12 @@ module.exports = {
     'fp/no-throw': 'error',
     'fp/no-unused-expression': 'error',
     'fp/no-valueof-field': 'error',
-    'no-var': 'error',
   },
+  processor: 'disable/disable',
+  overrides: [{
+    files: ['specs/**/*'],
+    settings: {
+      'disable/plugins': ['fp'],
+    },
+  }],
 };

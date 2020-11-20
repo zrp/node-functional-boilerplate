@@ -1,4 +1,4 @@
-const { Ok, Err } = require("crocks/Result");
+const { Ok, Err } = require('crocks/Result');
 const { HeroDomainService } = require('src/domain/hero');
 
 describe('Domain :: Hero', () => {
@@ -15,7 +15,7 @@ describe('Domain :: Hero', () => {
         const expected = isValid.equals(
           Err([
             '"weapon" with Sword of Omens is invalid, expected type is: Weapon',
-          ])
+          ]),
         );
         expect(expected).toBeTruthy();
       });
@@ -43,7 +43,7 @@ describe('Domain :: Hero', () => {
     };
     test('should add a new super power in hero domain object', () => {
       const expected = HeroDomainService.addSuperPower(heroData, 'super strength');
-      expect(expected).toEqual({
+      expect(expected).toStrictEqual({
         superPowers: ['fly', 'super strength'],
         powerLevel: 'S',
         baseOperations: 'New York',
