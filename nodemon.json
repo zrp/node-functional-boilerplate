@@ -3,6 +3,6 @@
   "quiet": true,
   "ext": "js",
   "watch": ["index.js", "src", "config"],
-  "ignore": ["specs/*", "bin/*", ".vscode/*", ".github/*"],
+  "ignore": ["specs/*", "bin/*", ".vscode/*", ".github/*", "scripts/*"],
   "execMap": {}
 }
