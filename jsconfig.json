@@ -1,0 +1,15 @@
+// This file provides features for the
+// JavaScript language service on vscode
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "baseUrl": "./",
+    "paths": {
+      "src": [
+        "src/*",
+      ],
+    }
+  }
+}
