@@ -28,8 +28,7 @@
   ],
   "scripts": {
     "start": "node index.js",
-    "start:debug": "nodemon --inspect-brk=0.0.0.0:9229 --config nodemon.json index.js",
-    "start:dev": "nodemon --inspect=0.0.0.0:9229 --config nodemon.json index.js",
+    "debug": "nodemon --config nodemon.json --inspect=0.0.0.0 --nolazy",
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit",
     "coverage": "NODE_ENV=test jest --runInBand --coverage --forceExit",
     "tdd": "NODE_ENV=test jest --runInBand --watchAll",
