@@ -1,5 +1,16 @@
 {
+  // Editor Configuration
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+
+  // ESLint Config
+  "eslint.validate": ["javascript"],
+
+  // Spell Checking Configuration
+  // For further information, check https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+  "cSpell.language": "en",
   "cSpell.words": [
     "bichain"
-  ]
+  ],
 }

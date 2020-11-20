@@ -1,5 +1,5 @@
 const { Ok, Err } = require("crocks/Result");
-const { HeroDomainService } = require('../../../../src/domain/hero');
+const { HeroDomainService } = require('src/domain/hero');
 
 describe('Domain :: Hero', () => {
   describe('#validateHero', () => {
