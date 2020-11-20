@@ -1,5 +1,3 @@
-const Hero = require('./Hero.module');
-const validate = require('../utils/validate');
 
 const addSuperPower = (domain, newSuperPower) => {
   const newSuperPowers = [...domain.superPowers, newSuperPower];
@@ -10,6 +8,5 @@ const addSuperPower = (domain, newSuperPower) => {
 };
 
 module.exports = {
-  validateHero: validate(Hero),
   addSuperPower,
 };

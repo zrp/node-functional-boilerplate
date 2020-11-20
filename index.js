@@ -1,6 +1,6 @@
 const container = require('./src/container');
 
-const app = container.resolve('app');
+const app = container.resolve('application');
 const logger = container.resolve('logger');
 
 module.exports = app

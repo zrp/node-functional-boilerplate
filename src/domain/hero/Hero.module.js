@@ -8,16 +8,19 @@ const {
   array,
 } = require('superstruct');
 
+const validate = require('../utils/validate');
+
 const hasAstralHammer = (value) => value === 'Astral Hammer';
 const Weapon = struct('Weapon', hasAstralHammer);
 const baseOperations = pipe(string, optional);
-const superPower = pipe(string, array);
+const arrayOfStrings = pipe(string, array);
 
 const Hero = object({
-  superPowers: superPower(),
+  superPowers: arrayOfStrings(),
   powerLevel: enums(['S', 'A', 'B', 'C', 'D']),
   baseOperations: baseOperations(),
   weapon: Weapon,
 });
 
-module.exports = Hero;
+
+module.exports = validate(Hero);
