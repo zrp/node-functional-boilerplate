@@ -11,5 +11,4 @@ const validateDomain = (struct) => (domainData) => {
   return error ? Err(mapStructError(error)) : Ok(value);
 };
 
-
 module.exports = validateDomain;

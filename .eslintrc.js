@@ -27,8 +27,8 @@ module.exports = {
     'fp/no-loops': 'error',
     'fp/no-mutating-assign': 'error',
     'fp/no-mutating-methods': 'error',
-    'fp/no-mutation': [ 'error', {
-      "commonjs": true,
+    'fp/no-mutation': ['error', {
+      commonjs: true,
     }],
     'fp/no-nil': 'error',
     'fp/no-proxy': 'error',
@@ -37,6 +37,6 @@ module.exports = {
     'fp/no-throw': 'error',
     'fp/no-unused-expression': 'error',
     'fp/no-valueof-field': 'error',
-    'no-var': 'error'
+    'no-var': 'error',
   },
 };
