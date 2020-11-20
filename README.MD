@@ -24,12 +24,15 @@ Microservice oriented, aiming to provide a quick services development, highly sc
 
 ## 🎈 Quick start <a name="quick"></a>
 
-- Clone this repo using `git clone https://github.com/zrpaplicacoes/node-functional-boilerplate.git`
-- Move to the appropriate directory: `cd node-functional-boilerplate`.
-- Run `npm i` in order to install dependencies.
-- Run `docker-compose up -d app && docker attach node-functional-boilerplate_app_1`
-- The sample application will be running in `localhost:3007/v1/graphql`
-- Happy coding
+- Clone this repo using `git clone https://github.com/zrpaplicacoes/node-functional-boilerplate.git`;
+- Move to the appropriate directory: `cd node-functional-boilerplate`;
+- Copy `.example.env` to `.local.env` and `.docker.env`;
+- Update environment variables on `.local.env` to match your host configuration;
+- Run `npm i` in order to install dependencies;
+- __Docker Only__: Run `docker-compose up -d app && docker-compose attach app`;
+- __Locally Only__: Run `Local: Launch` on vscode debug tab.
+- The sample application will be running in `localhost:3000/v1/graphql`;
+- Happy coding! 🎈
 
 ## 🛠 Issues <a name="issues"></a>
 

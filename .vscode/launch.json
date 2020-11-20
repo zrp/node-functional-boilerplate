@@ -1,0 +1,44 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Local: Launch",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/index.js",
+      "restart": false,
+      "stopOnEntry": false,
+      "trace": true,
+      "args": [],
+      "cwd": "${workspaceRoot}",
+      "preLaunchTask": null,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy"
+      ],
+      "envFile": "${workspaceFolder}/.local.env",
+      "console": "integratedTerminal",
+      "sourceMaps": false,
+      "outFiles": []
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Docker: Attach",
+      "protocol": "inspector",
+      "localRoot": "${workspaceFolder}",
+      "remoteRoot": "/home/node/app",
+      "internalConsoleOptions": "neverOpen",
+      "restart": true,
+      "trace": true,
+      "sourceMaps": false,
+      "outFiles": [],
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}

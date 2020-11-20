@@ -8,14 +8,16 @@ ARG APP_PATH=/home/node/app
 ARG PORT=3000
 ARG BUILD_PACKAGES=
 ARG DEV_PACKAGES="nano"
-ARG RUNTIME_PACKAGES="tzdata ca-certificates"
+ARG RUNTIME_PACKAGES="tzdata"
+ARG NODE_PATH=.
 
 # Environment
 ENV PORT=${PORT} \
     APP_PATH=${APP_PATH} \
     BUILD_PACKAGES=${BUILD_PACKAGES} \
     DEV_PACKAGES=${DEV_PACKAGES} \
-    RUNTIME_PACKAGES=${RUNTIME_PACKAGES}
+    RUNTIME_PACKAGES=${RUNTIME_PACKAGES} \
+    NODE_PATH=${NODE_PATH}
 
 # Expose ports for running processes
 EXPOSE $PORT
@@ -61,7 +63,7 @@ RUN npm install
 VOLUME ${APP_PATH}/node_modules
 
 # Run app on development mode by default
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "debug"]
 
 #-------------------------------------------------------------#
 #--------------------------Release----------------------------#
