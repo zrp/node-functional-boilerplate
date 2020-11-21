@@ -1,15 +1,17 @@
 const { fromPromise } = require('crocks/Async');
+const { toDatabase, toDomainObject } = require('./MongooseHeroMapper');
+
 
 const MongooseHeroRepository = ({
   HeroModel,
 }) => ({
   add: (heroData) => {
     const createHero = fromPromise((data) => HeroModel.create(data));
-    return createHero(heroData);
+    return createHero(toDatabase(heroData));
   },
   getAll: () => {
     const getAllHeros = fromPromise(() => HeroModel.find());
-    return getAllHeros();
+    return getAllHeros().map(toDomainObject);
   },
 });
 
