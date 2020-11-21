@@ -1,3 +1,5 @@
+const env = require('env-var');
+
 module.exports = {
-  url: process.env.MONGO_DB_URL,
+  url: env.get('MONGO_DB_URL').required().asUrlString(),
 };
