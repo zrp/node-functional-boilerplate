@@ -1,7 +1,9 @@
+const env = require('env-var');
+
 module.exports = {
-  port: process.env.PORT || 3000,
-  corsOrigin: process.env.CORS_ORIGIN,
-  corsHeaders: process.env.CORS_HEADERS,
-  corsMethods: process.env.CORS_METHODS,
-  corsExposeHeaders: process.env.CORS_EXPOSE_HEADERS,
+  port: env.get('PORT').required().asPortNumber(),
+  corsOrigin: env.get('CORS_ORIGIN').required().asString(),
+  corsHeaders: env.get('CORS_HEADERS').required().asString(),
+  corsMethods: env.get('CORS_METHODS').required().asString(),
+  corsExposeHeaders: env.get('CORS_EXPOSE_HEADERS').required().asString(),
 };
