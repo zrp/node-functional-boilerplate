@@ -2,12 +2,10 @@
 /* eslint-disable global-require */
 const fs = require('fs');
 const path = require('path');
-const { factory } = require('factory-bot');
 
 const loadFactories = ({ baseFolder }) => fs
   .readdirSync(baseFolder)
   .filter((file) => (file.indexOf('.') !== 0) && (file.slice(-3) === '.js'));
-
 
 const load = ({ factoryBot }) => ({ models }) => ({ baseFolder }) => loadFactories
   .map((file) => {
@@ -16,7 +14,6 @@ const load = ({ factoryBot }) => ({ models }) => ({ baseFolder }) => loadFactori
     return definedFactory(factoryBot, models);
   });
 
-
 module.exports = {
-  factoriesLoader: load({ factoryBot: factory }),
+  factoriesLoader: load,
 };
