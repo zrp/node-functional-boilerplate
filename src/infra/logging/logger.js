@@ -1,5 +1,13 @@
 const IO = require('crocks/IO');
 const getProp = require('crocks/Maybe/getProp');
+const isObject = require('crocks/predicates/isObject');
+const safe = require('crocks/Maybe/safe');
+const composeK = require('crocks/helpers/composeK');
+const maybeToArray = require('crocks/Maybe/maybeToArray');
+const chain = require('crocks/pointfree/chain');
+const objOf = require('crocks/helpers/objOf');
+
+const { Just } = require('crocks/Maybe');
 
 const {
   createLogger,
@@ -16,7 +24,7 @@ const {
   colorize,
 } = format;
 
-const deployedFormatter = (machineHost) => combine(
+const productionFormatter = (machineHost) => combine(
   label({
     label: machineHost,
   }),
@@ -24,16 +32,20 @@ const deployedFormatter = (machineHost) => combine(
   json(),
 );
 
-const deployedLogger = (machineHost) => createLogger({
-  format: deployedFormatter(machineHost),
+const productionLogger = ({
+  machineHost,
+  slackWebHookChannel,
+  slackWebHookUrl,
+}) => createLogger({
+  format: productionFormatter(machineHost),
   transports: [
     new transports.Console(),
     new transports.Slack({
       level: 'warn',
-      channel: process.env.SLACK_WEBHOOK_CHANNEL,
-      webhook_url: process.env.SLACK_WEBHOOK_URL,
+      channel: slackWebHookChannel,
+      webhook_url: slackWebHookUrl,
       custom_formatter: (level, message, meta) => ({
-        text: '*WL_MS[transaction]*\n'
+        text: `*${process.env.npm_package_name}*\n`
           + `*${level.toUpperCase()}*: ${message}\n`
           + `*TIME*: ${new Date()}\n`
           + `*STACK*: ${meta.stack || '--'}`,
@@ -56,26 +68,46 @@ const developmentFormatter = (machineHost) => combine(
   }),
 );
 
-const developmentLogger = (machineHost) => createLogger({
+const developmentLogger = ({ machineHost }) => createLogger({
   format: developmentFormatter(machineHost),
   transports: [
     new transports.Console(),
   ],
 });
 
-const isDevelopment = (env) => env !== 'production' || env !== 'staging';
+const isDevelopment = (env) => env.equals(Just('development'));
+
+const getSafeEnvs = (config) => {
+  const env = getProp('nodeEnv')(config);
+  const machineHost = getProp('machineHost')(config)
+    .map(objOf('machineHost'));
+
+  const slackEnvs = composeK(
+    getProp('slack'),
+    safe(isObject),
+  )(config);
+
+  const flatten = chain(maybeToArray);
+  const [prodEnvs] = flatten([machineHost, slackEnvs]);
+  const [devEnvs] = flatten([machineHost]);
+  return {
+    env,
+    prodEnvs,
+    devEnvs,
+  };
+};
 
 module.exports = ({
   config,
 }) => {
-  const env = getProp('nodeEnv')(config);
-  const machineHost = getProp('machineHost')(config);
+  const { devEnvs, prodEnvs, env } = getSafeEnvs(config);
 
-  const logger = isDevelopment(env) ? developmentLogger(machineHost) : deployedLogger(machineHost);
-
+  const logger = isDevelopment(env)
+    ? developmentLogger(devEnvs)
+    : productionLogger(prodEnvs);
   return {
-    error: IO.of(logger.error),
-    info: IO.of(logger.info),
-    warn: IO.of(logger.warn),
+    error: (message, err) => IO(() => logger.error(message, err)),
+    info: (message, err) => IO(() => logger.info(message, err)),
+    warn: (message, err) => IO(() => logger.warn(message, err)),
   };
 };

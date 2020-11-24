@@ -8,7 +8,7 @@ module.exports = ({
   healthCheckHandler,
 }) => {
   const router = Router()
-    .use(bodyParser.json())
+    .use(bodyParser.json()) // TODO move to root.router
     .use(httpOptionsMiddleware)
     .get('/status', healthCheckHandler);
 

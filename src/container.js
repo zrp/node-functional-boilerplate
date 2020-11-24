@@ -73,7 +73,14 @@ const container = createContainer()
   .register({
     database: asValue(database),
     HeroModel: asValue(HeroModel),
-    logger: asValue(console),
   });
+
+// Register Logger
+const logger = container.build(asFunction(loggerFactory));
+
+// eslint-disable-next-line fp/no-unused-expression
+container.register({
+  logger: asValue(logger),
+});
 
 module.exports = container;
