@@ -1,5 +1,5 @@
 const {
-  createContainer, asFunction, asValue,
+  createContainer, asFunction, asValue, Lifetime,
 } = require('awilix');
 
 // Configuration imports
@@ -23,40 +23,37 @@ const context = require('./interfaces/http/graphQL/context');
 const resolvers = require('./interfaces/http/graphQL/resolvers');
 const server = require('./interfaces/http/server');
 const typeDefs = require('./interfaces/http/graphQL/typeDefs');
-const {
-  heroMutations,
-} = require('./interfaces/http/graphQL/resolvers/mutations');
-const {
-  heroQueries,
-} = require('./interfaces/http/graphQL/resolvers/queries');
-
-// Application layer imports
-const application = require('./app/application');
-const {
-  CreateHero,
-  GetAllHeroes,
-} = require('./app/hero');
-
-// Domain layer imports
-const {
-  EnumsEntity,
-  HeroDomainService,
-  HeroDomainFactory,
-} = require('./domain/hero');
-
-// Infra layer imports
 
 const {
   database,
   Hero: HeroModel,
 } = require('./infra/database/models');
 
-const MongooseHeroRepository = require('./infra/repositories/hero/MongooseHeroRepository');
+const {
+  HeroDomainService,
+  HeroDomainFactory,
+} = require('./domain/hero');
 
-module.exports = createContainer()
+const container = createContainer()
+  .loadModules([
+    'src/app/**/*.js',
+    'src/infra/repositories/**/*.js',
+    'src/interfaces/http/graphQL/resolvers/mutations/**/*.js',
+    'src/interfaces/http/graphQL/resolvers/queries/**/*.js',
+  ], {
+    formatName: 'camelCase',
+    resolverOptions: {
+      register: asFunction,
+      lifetime: Lifetime.SINGLETON,
+    },
+  })
   // Configuration registration
   .register({
     config: asValue(config),
+  })
+  .register({
+    heroDomainFactory: asValue(HeroDomainFactory),
+    heroDomainService: asValue(HeroDomainService),
   })
   // Interfaces layer registrations
   .register({
@@ -71,25 +68,12 @@ module.exports = createContainer()
     server: asFunction(server).singleton(),
     typeDefs: asFunction(typeDefs).singleton(),
     v1Router: asFunction(v1Router).singleton(),
-    heroMutations: asFunction(heroMutations).singleton(),
-    heroQueries: asFunction(heroQueries).singleton(),
   })
-  // Application layer registrations
-  .register({
-    app: asFunction(application).singleton(),
-    createHero: asFunction(CreateHero).singleton(),
-    getAllHeroes: asFunction(GetAllHeroes).singleton(),
-  })
-  // Domain layer registrations
-  .register({
-    enumsEntity: asValue(EnumsEntity),
-    heroDomainFactory: asValue(HeroDomainFactory),
-    heroDomainService: asValue(HeroDomainService),
-  })
-  // Infra layer registrations
+  // Infra Layer Registration
   .register({
     database: asValue(database),
     HeroModel: asValue(HeroModel),
     logger: asValue(console),
-    heroRepository: asFunction(MongooseHeroRepository).singleton(),
   });
+
+module.exports = container;
