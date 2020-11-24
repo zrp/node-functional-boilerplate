@@ -1,4 +1,3 @@
-
 const addSuperPower = (domain, newSuperPower) => {
   const newSuperPowers = [...domain.superPowers, newSuperPower];
   return {

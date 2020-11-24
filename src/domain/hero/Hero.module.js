@@ -22,5 +22,4 @@ const Hero = object({
   weapon: Weapon,
 });
 
-
 module.exports = validate(Hero);

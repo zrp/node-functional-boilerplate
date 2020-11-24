@@ -52,7 +52,7 @@ const container = createContainer()
     config: asValue(config),
   })
   .register({
-    heroDomainFactory: asFunction(HeroDomainFactory).singleton(),
+    heroDomainFactory: asValue(HeroDomainFactory),
     heroDomainService: asValue(HeroDomainService),
   })
   // Interfaces layer registrations

@@ -1,4 +1,4 @@
-const heroQueries = require('./heroQuerys');
+const heroQueries = require('./heroQueries');
 
 module.exports = {
   heroQueries,

@@ -1,4 +1,4 @@
-const { Ok, Err } = require("crocks/Result");
+const { Ok, Err } = require('crocks/Result');
 const { HeroDomainFactory } = require('../../../../src/domain/hero');
 
 describe('Domain :: hero :: HeroModule', () => {
@@ -15,7 +15,7 @@ describe('Domain :: hero :: HeroModule', () => {
         const expected = isValid.equals(
           Err([
             '"weapon" with Sword of Omens is invalid, expected type is: Weapon',
-          ])
+          ]),
         );
         expect(expected).toBeTruthy();
       });
