@@ -1,26 +1,25 @@
-<h1 align="center">Node Functional Boilerplate</h1>
+<h1 align="center">NodeJS Functional Boilerplate</h1>
 
 <div align="center">
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 </div>
-
-<h2 align="center">NodeJS functional boilterplate for microservices</h2>
 
 ## 📖 Index
 
 - [About](#about)
 - [Features](#features)
-- [Quick start](#quick)
+- [Quick Start](#quick)
 - [Issues](#issues)
-- [Constributing](#constributing)
+- [Contributing](#constributing)
 - [Built with](#built_using)
 
 ## 🔍 About <a name = "about"></a>
 
-Created following the concepts of Functional Programming, Clean Architecture and Domain Driven Development. </br>
-Microservice oriented, aiming to provide a quick services development, highly scalable and be resilient to business rules changes.
+Created following the concepts of Functional Programming, Clean Architecture and Domain Driven Development,
+aiming to provide a fast service development, while being resilient to business rules changes.
 
 ## 🎈 Quick start <a name="quick"></a>
 
@@ -28,19 +27,19 @@ Microservice oriented, aiming to provide a quick services development, highly sc
 - Move to the appropriate directory: `cd node-functional-boilerplate`;
 - Copy `.example.env` to `.local.env` and `.docker.env`;
 - Update environment variables on `.local.env` to match your host configuration;
-- Run `npm i` in order to install dependencies;
-- __Docker Only__: Run `docker-compose up -d app && docker-compose attach app`;
+- __Locally Only__: Run `npm i` in order to install dependencies;
 - __Locally Only__: Run `Local: Launch` on vscode debug tab.
+- __Docker Only__: Run `docker-compose up -d app`;
 - The sample application will be running in `localhost:3000/v1/graphql`;
 - Happy coding! 🎈
 
 ## 🛠 Issues <a name="issues"></a>
 
-Please, if you come across any issues [report them here](https://github.com/zrpaplicacoes/node-functional-boilerplate/issues).
+Please, if you come across any issues, [report them here](https://github.com/zrpaplicacoes/node-functional-boilerplate/issues).
 
-## :octocat: Contributing <a name="constributing"></a>
+## :octocat: Contributing <a name="contributing"></a>
 
-Anyone is welcome to contribute! Please fell free to make any pull resquests, or resquest features you would like to see in the future.
+Anyone is welcome to contribute! Please fell free to make any pull requests, or request features you would like to see in the future.
 
 ## ⛏ Built with <a name = "built_using"></a>
 
