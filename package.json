@@ -46,7 +46,8 @@
     "graphql-import": "^1.0.0",
     "mongoose": "^5.10.16",
     "morgan": "^1.10.0",
-    "superstruct": "^0.12.1"
+    "superstruct": "^0.12.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
