@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const bodyParser = require('body-parser');
+const { heroController } = require('src/interfaces/http/controllers/hero/');
 
 module.exports = ({
   apollo,
@@ -8,7 +8,6 @@ module.exports = ({
   healthCheckHandler,
 }) => {
   const router = Router()
-    .use(bodyParser.json()) // TODO move to root.router
     .use(httpOptionsMiddleware)
     .get('/status', healthCheckHandler);
 
@@ -18,5 +17,6 @@ module.exports = ({
     path: `/${apolloConfig.route}`,
   });
 
-  return router;
+  return router
+    .use('/hero', heroController);
 };
