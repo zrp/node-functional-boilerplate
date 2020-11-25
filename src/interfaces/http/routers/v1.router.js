@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { heroController } = require('src/interfaces/http/controllers/hero/');
 
 module.exports = ({
   apollo,
@@ -16,5 +17,6 @@ module.exports = ({
     path: `/${apolloConfig.route}`,
   });
 
-  return router;
+  return router
+    .use('/hero', heroController);
 };
