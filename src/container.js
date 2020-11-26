@@ -34,6 +34,20 @@ const {
   HeroDomainFactory,
 } = require('./domain/hero');
 
+<<<<<<< HEAD
+=======
+// Infra layer imports
+
+const {
+  database,
+  Hero: HeroModel,
+} = require('./infra/database/models');
+
+const MongooseHeroRepository = require('./infra/repositories/hero/MongooseHeroRepository');
+
+const { loggerFactory } = require('./infra/logging/logger');
+
+>>>>>>> 7f8b40a... refactor(logger): refactor Logger
 const container = createContainer()
   .loadModules([
     'src/app/**/*.js',

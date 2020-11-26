@@ -1,12 +1,10 @@
 const IO = require('crocks/IO');
 const getProp = require('crocks/Maybe/getProp');
-const isObject = require('crocks/predicates/isObject');
-const safe = require('crocks/Maybe/safe');
-const composeK = require('crocks/helpers/composeK');
 const maybeToArray = require('crocks/Maybe/maybeToArray');
 const chain = require('crocks/pointfree/chain');
 const objOf = require('crocks/helpers/objOf');
-
+const { isDevelopment } = require('src/utils');
+const bichain = require('crocks/pointfree/bichain');
 const { Just } = require('crocks/Maybe');
 
 const {
@@ -24,72 +22,78 @@ const {
   colorize,
 } = format;
 
-const productionFormatter = (machineHost) => combine(
+const productionFormatter = ({ labelValue }) => combine(
   label({
-    label: machineHost,
+    label: labelValue,
   }),
   timestamp(),
   json(),
 );
 
 const productionLogger = ({
-  machineHost,
-  slackWebHookChannel,
-  slackWebHookUrl,
+  appIdentifier,
 }) => createLogger({
-  format: productionFormatter(machineHost),
+  format: productionFormatter({ labelValue: appIdentifier }),
   transports: [
     new transports.Console(),
-    new transports.Slack({
-      level: 'warn',
-      channel: slackWebHookChannel,
-      webhook_url: slackWebHookUrl,
-      custom_formatter: (level, message, meta) => ({
-        text: `*${process.env.npm_package_name}*\n`
-          + `*${level.toUpperCase()}*: ${message}\n`
-          + `*TIME*: ${new Date()}\n`
-          + `*STACK*: ${meta.stack || '--'}`,
-      }),
-    }),
   ],
 });
 
-const developmentFormatter = (machineHost) => combine(
+const createPrefixInfo = (info) => getProp('timestamp')(info)
+  .chain((t) => Just(`${t} [`))
+  .concat(getProp('label')(info))
+  .chain((message) => Just(`${message}] `))
+  .concat(getProp('level')(info));
+
+const getErrorMessage = (i) => getProp('message')(i)
+  .chain((msg) => Just(JSON.stringify(msg)));
+const getErrorStack = getProp('stack');
+
+const formatMessageWithPrefix = (i) => createPrefixInfo(i)
+  .chain((prefix) => Just(`${prefix}: `))
+  .concat(getErrorMessage(i));
+
+const formatStack = (messageWithPrefix) => bichain(
+  () => messageWithPrefix,
+  (stack) => messageWithPrefix
+    .chain((message) => Just(`${message}\nSTACK: `))
+    .concat(Just(stack)),
+);
+
+const printDevMessage = (info) => {
+  const prefix = formatMessageWithPrefix(info);
+  const formatStackWithPrefix = formatStack(prefix);
+  const errorStack = getErrorStack(info);
+  return formatStackWithPrefix(errorStack);
+};
+
+const developmentFormatter = ({ labelValue }) => combine(
   timestamp(),
   colorize(),
   label({
-    label: machineHost,
+    label: labelValue,
   }),
   printf((i) => {
-    const { stack } = i;
-    const msg = JSON.stringify(i.message);
-    const prefix = `${i.timestamp} [${i.label}] ${i.level}`;
-    return stack ? `${prefix}: ${msg}\nSTACK: ${stack}` : `${prefix}: ${msg}`;
+    const [msg] = maybeToArray(printDevMessage(i));
+    return msg;
   }),
 );
 
-const developmentLogger = ({ machineHost }) => createLogger({
-  format: developmentFormatter(machineHost),
+const developmentLogger = ({ appIdentifier }) => createLogger({
+  format: developmentFormatter({ labelValue: appIdentifier }),
   transports: [
     new transports.Console(),
   ],
 });
 
-const isDevelopment = (env) => env.equals(Just('development'));
-
 const getSafeEnvs = (config) => {
   const env = getProp('nodeEnv')(config);
-  const machineHost = getProp('machineHost')(config)
-    .map(objOf('machineHost'));
-
-  const slackEnvs = composeK(
-    getProp('slack'),
-    safe(isObject),
-  )(config);
+  const appIdentifier = getProp('appIdentifier')(config)
+    .map(objOf('appIdentifier'));
 
   const flatten = chain(maybeToArray);
-  const [prodEnvs] = flatten([machineHost, slackEnvs]);
-  const [devEnvs] = flatten([machineHost]);
+  const [prodEnvs] = flatten([appIdentifier]);
+  const [devEnvs] = flatten([appIdentifier]);
   return {
     env,
     prodEnvs,
@@ -97,7 +101,7 @@ const getSafeEnvs = (config) => {
   };
 };
 
-module.exports = ({
+const getLogger = ({
   config,
 }) => {
   const { devEnvs, prodEnvs, env } = getSafeEnvs(config);
@@ -109,5 +113,11 @@ module.exports = ({
     error: (message, err) => IO(() => logger.error(message, err)),
     info: (message, err) => IO(() => logger.info(message, err)),
     warn: (message, err) => IO(() => logger.warn(message, err)),
+    debug: (message, err) => IO(() => logger.debug(message, err)),
   };
+};
+
+module.exports = {
+  getLogger,
+  printDevMessage,
 };

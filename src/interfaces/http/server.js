@@ -13,7 +13,6 @@ module.exports = ({
 
   return {
     start: () => express
-      .disable('x-powered-by')
       .use(rootRouter)
       .listen(port, () => logger.info(`[PID ${process.pid}] Listening at port ${port}`).run()),
   };
