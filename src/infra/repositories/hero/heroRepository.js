@@ -1,7 +1,6 @@
 const { fromPromise } = require('crocks/Async');
 const { toDatabase, toDomainObject } = require('./MongooseHeroMapper');
 
-
 const MongooseHeroRepository = ({
   HeroModel,
 }) => ({

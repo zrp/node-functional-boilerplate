@@ -1,14 +1,24 @@
-const MongooseHeroRepository = require('src/infra/repositories/hero/MongooseHeroRepository');
- const factory = require('specs/support/factory.js');
+const factory = require('specs/support/factory');
+const heroRepository = require('src/infra/repositories/hero/heroRepository.js');
+const {
+  Hero: HeroModel,
+} = require('src/infra/database/models');
+const { HeroDomainFactory } = require('src/domain/hero');
+
 describe('Infra :: Hero :: MongooseHeroRepository', () => {
   describe('#getAll', () => {
-    beforeEach(async() => {
-      const result = await factory.create('hero');
-      console.log("%c 📳: result ", "font-size:16px;background-color:#dd070c;color:white;", result);
-    }); 
+    let hero;
+
+    beforeEach(async () => {
+      hero = await factory.create('hero');
+    });
+
     test('should return a Async with add operation', async () => {
-      // const result = await MongooseHeroRepository.getAll().toPromise();
-      // expect(result).toEqual({});
+      const result = await heroRepository({ HeroModel }).getAll().toPromise();
+      expect(result.toString()).toBe(HeroDomainFactory(hero).toString());
+      // Result:
+      // Expected: "Ok { superPowers: [ \"Fire Breath\" ], name: \"Nothing\", powerLevel: \"B\", weapon: \"Astral Hammer\", baseOperations: \"Just Function\", id: \"5fbfd35233275a00f08ee081\" }"
+      // Received: "Ok { id: \"5fbfd35233275a00f08ee081\", name: \"Nothing\", superPowers: [ \"Fire Breath\" ], powerLevel: \"B\", baseOperations: \"Just Function\", weapon: \"Astral Hammer\" }"
     });
   });
 });

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const { mongoDb } = require('config/index');
 const { ModelsLoader } = require('../../mongoose');
 
-if (process.env.MONGO_DB_URL) {
+if (mongoDb.url) {
   const db = mongoose;
 
   module.exports = ModelsLoader.load({
@@ -9,8 +10,6 @@ if (process.env.MONGO_DB_URL) {
     baseFolder: __dirname,
   });
 } else {
-  /* eslint-disable no-console */
-  // eslint-disable-next-line fp/no-unused-expression
+  /* eslint-disable-next-line fp/no-unused-expression, no-console */
   console.error('Database config file not found, disabling database.');
-  /* eslint-enable no-console */
 }

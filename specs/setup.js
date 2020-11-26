@@ -1,4 +1,5 @@
 const container = require('src/container');
+
 const database = container.resolve('database');
 
 const cleanDatabase = require('specs/support/cleanDatabase');
@@ -15,4 +16,3 @@ afterAll(async (done) => {
   await cleanDatabase(database, done);
   return done();
 });
-

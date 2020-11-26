@@ -17,8 +17,8 @@ const HeroSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  superPower: {
-    type: String,
+  superPowers: {
+    type: [String],
     required: true,
   },
   powerLevel: {

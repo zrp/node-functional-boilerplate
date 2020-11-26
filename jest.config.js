@@ -1,4 +1,6 @@
 module.exports = {
+  verbose: true,
+  testEnvironment: 'node',
   coverageReporters: [
     'text-summary',
     'html',
@@ -8,5 +10,8 @@ module.exports = {
     '!src/app/application.js',
     '!src/interfaces/http/server.js',
     '!src/interfaces/http/routers/*',
+  ],
+  setupFilesAfterEnv: [
+    './specs/setup.js',
   ],
 };

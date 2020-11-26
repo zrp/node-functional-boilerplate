@@ -1,7 +1,12 @@
 const startServer = (server) => server.start();
 
-const connectMongoDb = (db, { mongoDb: config }) => db
-  .connect(encodeURI(config.url), { useNewUrlParser: true, useUnifiedTopology: true });
+const connectMongoDb = async (db, { mongoDb: config }) => {
+  await db.connect(encodeURI(config.url), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  db.set('debug', true);
+};
 
 module.exports = ({
   config,
