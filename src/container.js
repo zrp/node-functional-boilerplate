@@ -42,6 +42,7 @@ const container = createContainer()
     'src/infra/repositories/**/*.js',
     'src/interfaces/http/graphQL/resolvers/mutations/**/*.js',
     'src/interfaces/http/graphQL/resolvers/queries/**/*.js',
+    'src/interfaces/http/controller/**/*.js',
   ], {
     formatName: 'camelCase',
     resolverOptions: {
