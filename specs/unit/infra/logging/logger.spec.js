@@ -41,5 +41,19 @@ describe('Infra :: logging :: loger.js', () => {
         expect(expected).toStrictEqual([]);
       });
     });
+    describe('When receives null', () => {
+      test('should return a Nothing with a empty array', () => {
+        const info = undefined;
+        const expected = maybeToArray(printDevMessage(info));
+        expect(expected).toStrictEqual([]);
+      });
+    });
+    describe('When receives undefined', () => {
+      test('should return a Nothing with a empty array', () => {
+        const info = null;
+        const expected = maybeToArray(printDevMessage(info));
+        expect(expected).toStrictEqual([]);
+      });
+    });
   });
 });
