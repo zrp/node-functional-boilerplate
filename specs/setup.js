@@ -4,6 +4,12 @@ const database = container.resolve('database');
 
 const cleanDatabase = require('specs/support/cleanDatabase');
 
+const { toMatchFuckingCrocksObject } = require('./support/crocksMatcher');
+
+expect.extend({
+  toMatchFuckingCrocksObject,
+});
+
 beforeEach(async (done) => cleanDatabase(database, done));
 
 afterEach(async (done) => {

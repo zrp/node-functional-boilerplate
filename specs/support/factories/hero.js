@@ -1,4 +1,4 @@
-const { safeChance, getRandomIndex } = require('src/infra/support/dataFaker.js');
+const { chance, getRandomIndex } = require('src/infra/support/dataFaker.js');
 
 const mongooseToObjectOptions = () => ({
   getters: true,
@@ -37,11 +37,11 @@ const powerLevel = ['S', 'A', 'B', 'C', 'D'];
  */
 module.exports = (factory, { Hero }) => {
   factory.define('hero', Hero, {
-    name: safeChance('somerandomword'), // FIXME this is not working
+    name: chance.name(),
     superPowers: [getRandomIndex(superPowers)],
     powerLevel: getRandomIndex(powerLevel),
     weapon: getRandomIndex(weapons),
-    baseOperations: safeChance('city'), // FIXME this is not working
+    baseOperations: chance.city(),
   }, {
     afterCreate: (model) => model.toObject(mongooseToObjectOptions()),
   });

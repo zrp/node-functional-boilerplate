@@ -38,8 +38,6 @@ const toDB = (data) => {
 
 const MongooseHeroMapper = {
   toDomainObject(entity) {
-    console.log('🚀 ~ file: MongooseHeroMapper.js ~ line 5 ~ toDomainObject ~ entity', entity);
-
     if (!entity) return null;
 
     if (Array.isArray(entity)) {
