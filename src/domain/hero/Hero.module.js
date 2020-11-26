@@ -3,7 +3,7 @@ const {
   object,
   string,
   enums,
-  struct,
+  define,
   optional,
   array,
 } = require('superstruct');
@@ -11,7 +11,7 @@ const {
 const validate = require('../utils/validate');
 
 const hasAstralHammer = (value) => value === 'Astral Hammer';
-const Weapon = struct('Weapon', hasAstralHammer);
+const Weapon = define('Weapon', hasAstralHammer);
 const baseOperations = pipe(string, optional);
 const arrayOfStrings = pipe(string, array);
 

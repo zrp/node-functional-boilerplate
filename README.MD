@@ -13,13 +13,14 @@
 - [Features](#features)
 - [Quick Start](#quick)
 - [Issues](#issues)
-- [Contributing](#constributing)
-- [Built with](#built_using)
+- [Contributing](#contributing)
+- [Built with](#built-with)
 
 ## 🔍 About <a name = "about"></a>
 
-Created following the concepts of Functional Programming, Clean Architecture and Domain Driven Development,
-aiming to provide a fast service development, while being resilient to business rules changes.
+Created following the concepts of Functional Programming, Clean Architecture and
+Domain Driven Development, aiming to provide a fast service development, while
+being resilient to business rules changes.
 
 ## 🎈 Quick start <a name="quick"></a>
 
@@ -39,9 +40,10 @@ Please, if you come across any issues, [report them here](https://github.com/zrp
 
 ## :octocat: Contributing <a name="contributing"></a>
 
-Anyone is welcome to contribute! Please fell free to make any pull requests, or request features you would like to see in the future.
+Anyone is welcome to contribute! Please fell free to make any pull requests, or
+request features you would like to see in the future.
 
-## ⛏ Built with <a name = "built_using"></a>
+## ⛏ Built with <a name = "built-with"></a>
 
 - [NodeJS](https://nodejs.org/)
 - [ExpressJS](https://expressjs.com/)
