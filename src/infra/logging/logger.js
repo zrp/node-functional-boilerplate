@@ -40,23 +40,23 @@ const productionLogger = ({
 });
 
 const createPrefixInfo = (info) => getProp('timestamp')(info)
-  .chain((t) => Just(`${t} [`))
+  .map((t) => `${t} [`)
   .concat(getProp('label')(info))
   .chain((message) => Just(`${message}] `))
   .concat(getProp('level')(info));
 
 const getErrorMessage = (i) => getProp('message')(i)
-  .chain((msg) => Just(JSON.stringify(msg)));
+  .map(JSON.stringify);
 const getErrorStack = getProp('stack');
 
 const formatMessageWithPrefix = (i) => createPrefixInfo(i)
-  .chain((prefix) => Just(`${prefix}: `))
+  .map((prefix) => `${prefix}: `)
   .concat(getErrorMessage(i));
 
 const formatStack = (messageWithPrefix) => bichain(
   () => messageWithPrefix,
   (stack) => messageWithPrefix
-    .chain((message) => Just(`${message}\nSTACK: `))
+    .map((message) => `${message}\nSTACK: `)
     .concat(Just(stack)),
 );
 
