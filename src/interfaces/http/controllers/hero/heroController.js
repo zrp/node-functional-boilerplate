@@ -8,7 +8,7 @@ const indexRoute = curry((getAllHeroes, req, res, next) => getAllHeroes().fork(
   ({ result }) => resolveAndSend(res, Status.OK, result),
 ));
 
-const createRoute = curry((createHero, heroData, req, res, next) => createHero(heroData).fork(
+const createRoute = curry((createHero, req, res, next) => createHero(req.body).fork(
   ({ error }) => executeErrorHandler(error, res, next),
   ({ result }) => resolveAndSend(res, Status.OK, result),
 ));
@@ -16,7 +16,7 @@ const createRoute = curry((createHero, heroData, req, res, next) => createHero(h
 module.exports = ({
   createHero, getAllHeroes, heroSerializer,
 }) => ({
-  heroController: Router()
+  router: Router()
     .get('/', indexRoute(getAllHeroes, heroSerializer))
     .post('/', createRoute(createHero)),
   indexRoute,

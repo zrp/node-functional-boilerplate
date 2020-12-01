@@ -39,7 +39,6 @@ const productionLogger = ({
   ],
 });
 
-app      |     at raiseError (/home/node/app/node_modules/env-var/lib/variable.js:47:11)
 const createPrefixInfo = (info) => getProp('timestamp')(info)
   .map((t) => `${t} [`)
   .concat(getProp('label')(info))
