@@ -9,6 +9,8 @@ const config = require('../config');
 const {
   healthCheckHandler,
 } = require('./interfaces/http/handlers');
+
+const apolloErrorHandler = require('./interfaces/http/graphQL/errorHandler');
 const {
   corsMiddleware,
   httpOptionsMiddleware,
@@ -68,6 +70,7 @@ const container = createContainer()
     healthCheckHandler: asFunction(healthCheckHandler).singleton(),
     httpOptionsMiddleware: asFunction(httpOptionsMiddleware).singleton(),
     loggerMiddleware: asFunction(loggerMiddleware).singleton(),
+    apolloErrorHandler: asValue(apolloErrorHandler),
     resolvers: asFunction(resolvers).singleton(),
     rootRouter: asFunction(rootRouter).singleton(),
     server: asFunction(server).singleton(),
