@@ -1,11 +1,10 @@
 const Async = require('crocks/Async');
+const unit = require('crocks/helpers/unit');
 
 const {
   indexRoute,
   createRoute,
 } = require('src/interfaces/http/controllers/hero/heroController');
-
-const noop = () => [];
 
 describe('Interfaces :: controllers :: hero :: HeroController', () => {
   describe('#indexRoute', () => {
@@ -20,14 +19,14 @@ describe('Interfaces :: controllers :: hero :: HeroController', () => {
           }),
         };
 
-        const nextNoop = noop;
-        const reqNoop = noop;
+        const nextNoop = unit;
+        const reqNoop = unit;
         const fakeGetAllHeroes = Async.Resolved({
           result: ['I am Batman', 'I am Superman'],
         });
         const fakeHeroSerializer = (data) => data;
         const expectedMiddleware = indexRoute(fakeGetAllHeroes, fakeHeroSerializer);
-        expect(expectedMiddleware(reqNoop, nextNoop, fakeRes)).toBe(fakeRes);
+        expect(expectedMiddleware(reqNoop, nextNoop, fakeRes)).toBe();
       });
     });
     describe('when operation has error', () => {});

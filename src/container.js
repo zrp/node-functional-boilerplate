@@ -36,13 +36,15 @@ const {
 
 const { getLogger } = require('./infra/logging/logger');
 
+const heroController = require('./interfaces/http/controllers/hero/heroController');
+const heroSerializer = require('./interfaces/http/controllers/hero/heroSerializer');
+
 const container = createContainer()
   .loadModules([
     'src/app/**/*.js',
     'src/infra/repositories/**/*.js',
     'src/interfaces/http/graphQL/resolvers/mutations/**/*.js',
     'src/interfaces/http/graphQL/resolvers/queries/**/*.js',
-    'src/interfaces/http/controller/**/*.js',
   ], {
     formatName: 'camelCase',
     resolverOptions: {
@@ -71,6 +73,14 @@ const container = createContainer()
     server: asFunction(server).singleton(),
     typeDefs: asFunction(typeDefs).singleton(),
     v1Router: asFunction(v1Router).singleton(),
+  })
+  // Controllers
+  .register({
+    heroController: asFunction(heroController).singleton(),
+  })
+  // Serializer
+  .register({
+    heroSerializer: asValue(heroSerializer),
   })
   // Infra Layer Registration
   .register({

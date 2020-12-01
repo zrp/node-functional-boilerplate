@@ -1,11 +1,11 @@
 const { Router } = require('express');
-const { heroController } = require('src/interfaces/http/controllers/hero/heroController');
 
 module.exports = ({
   apollo,
   config: { apollo: apolloConfig },
   httpOptionsMiddleware,
   healthCheckHandler,
+  heroController,
 }) => {
   const router = Router()
     .use(httpOptionsMiddleware)
@@ -18,5 +18,5 @@ module.exports = ({
   });
 
   return router
-    .use('/hero', heroController);
+    .use('/hero', heroController.router);
 };
