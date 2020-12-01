@@ -16,7 +16,7 @@ const baseOperations = pipe(string, optional);
 const arrayOfStrings = pipe(string, array);
 
 const Hero = object({
-  id: string(),
+  id: optional(string()),
   name: string(),
   superPowers: arrayOfStrings(),
   powerLevel: enums(['S', 'A', 'B', 'C', 'D']),

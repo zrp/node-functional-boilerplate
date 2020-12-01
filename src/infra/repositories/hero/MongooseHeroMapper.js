@@ -22,6 +22,7 @@ const toDomain = (data) => {
 
 const toDB = (data) => {
   const {
+    name,
     superPowers,
     powerLevel,
     baseOperations,
@@ -29,6 +30,7 @@ const toDB = (data) => {
   } = data;
 
   return {
+    name,
     superPowers,
     powerLevel,
     baseOperations,
