@@ -1,4 +1,4 @@
-const addSuperPower = (domain, newSuperPower) => {
+const addSuperPower = (newSuperPower) => (domain) => {
   const newSuperPowers = [...domain.superPowers, newSuperPower];
   return {
     ...domain,

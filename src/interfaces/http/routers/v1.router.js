@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { heroController } = require('src/interfaces/http/controllers/hero/');
+const { heroController } = require('src/interfaces/http/controllers/hero/heroController');
 
 module.exports = ({
   apollo,

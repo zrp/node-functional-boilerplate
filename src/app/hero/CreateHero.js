@@ -1,16 +1,11 @@
-const Async = require('crocks/Async');
 const resultToAsync = require('crocks/Async/resultToAsync');
+const { createOperationOutput } = require('../utils');
 
-const { Resolved } = Async;
+const CreateHero = ({ heroDomainFactory, heroDomainService, heroRepository }) => (
+  heroData,
+) => resultToAsync(heroDomainFactory(heroData)
+  .map(heroDomainService('super strength')))
+  .chain(heroRepository.add)
+  .bimap(createOperationOutput, createOperationOutput);
 
-module.exports = ({
-  heroDomainFactory,
-  heroDomainService,
-  heroRepository,
-}) => (heroData) => {
-  const { validateHero } = heroDomainService;
-
-  return Resolved(heroDomainFactory(heroData))
-    .chain(resultToAsync(validateHero))
-    .chain(heroRepository.add);
-};
+module.exports = CreateHero;
