@@ -7,7 +7,7 @@ FROM node:lts-alpine3.11 as base
 ARG APP_PATH=/home/node/app
 ARG PORT=3000
 ARG BUILD_PACKAGES=
-ARG DEV_PACKAGES="nano"
+ARG DEV_PACKAGES="nano git"
 ARG RUNTIME_PACKAGES="tzdata"
 ARG NODE_PATH=.
 

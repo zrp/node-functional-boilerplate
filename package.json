@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.19.0",
-    "awilix": "^4.2.7",
+    "awilix": "^4.3.0",
     "body-parser": "^1.19.0",
     "chance": "^1.1.7",
     "crocks": "^0.12.4",
@@ -45,9 +45,12 @@
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "graphql-import": "^1.0.0",
-    "mongoose": "^5.10.15",
+    "helmet": "^4.2.0",
+    "http-status": "^1.5.0",
+    "mongoose": "^5.11.0",
     "morgan": "^1.10.0",
-    "superstruct": "^0.11.1"
+    "superstruct": "^0.12.1",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

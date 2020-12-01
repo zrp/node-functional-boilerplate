@@ -34,6 +34,8 @@ const {
   HeroDomainFactory,
 } = require('./domain/hero');
 
+const { getLogger } = require('./infra/logging/logger');
+
 const container = createContainer()
   .loadModules([
     'src/app/**/*.js',
@@ -73,7 +75,14 @@ const container = createContainer()
   .register({
     database: asValue(database),
     HeroModel: asValue(HeroModel),
-    logger: asValue(console),
   });
+
+// Register Logger
+const logger = container.build(asFunction(getLogger));
+
+// eslint-disable-next-line fp/no-unused-expression
+container.register({
+  logger: asValue(logger),
+});
 
 module.exports = container;

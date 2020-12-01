@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const bodyParser = require('body-parser');
 
 module.exports = ({
   apollo,
@@ -8,7 +7,6 @@ module.exports = ({
   healthCheckHandler,
 }) => {
   const router = Router()
-    .use(bodyParser.json())
     .use(httpOptionsMiddleware)
     .get('/status', healthCheckHandler);
 
