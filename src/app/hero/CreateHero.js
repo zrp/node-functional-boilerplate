@@ -4,8 +4,9 @@ const { createOperationOutput } = require('../utils');
 const CreateHero = ({ heroDomainFactory, heroDomainService, heroRepository }) => (
   heroData,
 ) => resultToAsync(heroDomainFactory(heroData)
-  .map(heroDomainService('super strength')))
+  .map(heroDomainService.addSuperPower('super strength')))
   .chain(heroRepository.add)
-  .bimap(createOperationOutput, createOperationOutput);
+  .bimap((err) => console.log(err), (result) => console.log(result))
+  .bichain(createOperationOutput, createOperationOutput);
 
 module.exports = CreateHero;

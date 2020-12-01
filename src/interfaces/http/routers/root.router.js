@@ -7,7 +7,7 @@ module.exports = ({
   loggerMiddleware,
   v1Router,
 }) => Router()
-  .use(helmet())
+  // .use(helmet())
   .use(bodyParser.json())
   .use(corsMiddleware())
   .use(loggerMiddleware)
