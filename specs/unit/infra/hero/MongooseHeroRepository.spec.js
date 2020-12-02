@@ -5,6 +5,7 @@ const {
 } = require('src/infra/database/models');
 const { HeroDomainFactory } = require('src/domain/hero');
 const resultToObject = require('specs/support/resultToObject');
+const mongoose = require('mongoose');
 
 const HeroRepository = heroRepository({ HeroModel });
 
@@ -28,10 +29,61 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
     });
 
     describe('When there\'s no heroes', () => {
-      test('should return all heroes', async () => {
+      test('should return no heroes', async () => {
         const result = await HeroRepository.getAll().toPromise();
 
         expect(result).toHaveLength(0);
+      });
+    });
+  });
+
+  describe('#getOne', () => {
+    let hero;
+
+    describe('When there\'s a hero for the id provided', () => {
+      beforeEach(async () => {
+        hero = await factory.create('hero');
+      });
+
+      test('should return an existent hero', async () => {
+        const result = await HeroRepository.getOne(hero.id).toPromise();
+
+        expect(result).toEqualOk(HeroDomainFactory(hero));
+      });
+    });
+
+    describe('When there\'s no hero for the id provided', () => {
+      test('should return no hero', async () => {
+        const randomUid = mongoose.Types.ObjectId();
+        const result = await HeroRepository.getOne(randomUid).toPromise();
+
+        expect(result).toBeNull();
+      });
+    });
+  });
+
+  describe('#updateOne', () => {
+    let hero;
+
+    describe('When there\'s actually a hero', () => {
+      beforeEach(async () => {
+        hero = await factory.create('hero');
+      });
+
+      test('should update an existent hero', async () => {
+        const payload = {
+          name: 'Super Lhama',
+          superPowers: ['Acid Split'],
+          powerLevel: 'S',
+          baseOperations: 'Peru',
+          weapon: 'Astral Hammer',
+        };
+        const result = await HeroRepository.updateOne(hero.id, payload).toPromise();
+
+        expect(resultToObject(result).ok).toStrictEqual({
+          id: expect.any(String),
+          ...payload,
+        });
       });
     });
   });
@@ -68,6 +120,31 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
       test('should throw a mongoose error', async () => {
         expect(await HeroRepository.add(payload).toPromise())
           .toThrow(/'ValidationError: Hero validation failed: powerLevel: `W` is not a valid enum value for path `powerLevel`./);
+      });
+    });
+  });
+
+  describe('#delete', () => {
+    let hero;
+
+    describe('When delete a hero', () => {
+      beforeEach(async () => {
+        hero = await factory.create('hero');
+      });
+
+      test('should return an ok deleted hero', async () => {
+        const result = await HeroRepository.delete(hero.id).toPromise();
+
+        expect(result).toEqualOk(HeroDomainFactory(hero));
+      });
+    });
+
+    describe('When there\'s no hero to delete', () => {
+      test('should return an ok deleted hero', async () => {
+        const randomUid = mongoose.Types.ObjectId();
+        const result = await HeroRepository.delete(randomUid).toPromise();
+
+        expect(result).toBeNull();
       });
     });
   });
