@@ -10,7 +10,7 @@ const indexRoute = curry((getAllHeroes, req, res, next) => getAllHeroes().fork(
 
 const createRoute = curry((createHero, req, res, next) => createHero(req.body).fork(
   ({ error }) => executeErrorHandler(error, res, next),
-  ({ result }) => resolveAndSend(res, Status.OK, result),
+  ({ result }) => resolveAndSend(res, Status.CREATED, result),
 ));
 
 module.exports = ({

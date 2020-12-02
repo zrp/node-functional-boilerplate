@@ -9,7 +9,7 @@ const mapStructError = ({
 const validateDomain = (struct) => (domainData) => {
   const [error, value] = validate(domainData, struct);
   return error ? Err({
-    message: 'ValidationError',
+    name: 'ValidationError',
     details: mapStructError(error),
   }) : Ok(value);
 };
