@@ -21,8 +21,8 @@ const resolveNotFoundError = curry((res, error) => res
 
 const executeErrorHandler = (error, res, next) => {
   const errorsMap = {
-    NOT_FOUND: resolveNotFoundError(res),
-    VALIDATION_ERROR: resolveValidationError(res),
+    NotFound: resolveNotFoundError(res),
+    ValidationError: resolveValidationError(res),
   };
 
   const getErrorHandler = getPropOr(rejectAndNext(next));
