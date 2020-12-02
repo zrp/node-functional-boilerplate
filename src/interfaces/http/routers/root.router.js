@@ -6,9 +6,11 @@ module.exports = ({
   corsMiddleware,
   loggerMiddleware,
   v1Router,
+  errorHandler,
 }) => Router()
   // .use(helmet())
   .use(bodyParser.json())
   .use(corsMiddleware())
   .use(loggerMiddleware)
-  .use('/v1', v1Router);
+  .use('/v1', v1Router)
+  .use(errorHandler);

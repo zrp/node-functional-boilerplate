@@ -1,12 +1,11 @@
 const resultToAsync = require('crocks/Async/resultToAsync');
-const { createOperationOutput } = require('../utils');
+const { buildError, buildSuccess } = require('../utils');
 
 const CreateHero = ({ heroDomainFactory, heroDomainService, heroRepository }) => (
   heroData,
 ) => resultToAsync(heroDomainFactory(heroData)
   .map(heroDomainService.addSuperPower('super strength')))
   .chain(heroRepository.add)
-  .bimap((err) => console.log(err), (result) => console.log(result))
-  .bichain(createOperationOutput, createOperationOutput);
+  .bimap(buildError, buildSuccess);
 
 module.exports = CreateHero;
