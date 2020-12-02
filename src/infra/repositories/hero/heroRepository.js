@@ -10,21 +10,25 @@ const MongooseHeroRepository = ({
       .map(toDomainObject);
   },
   getAll: () => {
-    const getAllHeros = fromPromise(() => HeroModel.find());
-    return getAllHeros()
+    const getAllHeroes = fromPromise(() => HeroModel.find());
+    return getAllHeroes()
       .map(toDomainObject);
   },
-  delete: () => {
-    const deleteHero = fromPromise(() => HeroModel.delete());
-    return deleteHero();
+  delete: (heroId) => {
+    const deleteHero = fromPromise((id) => HeroModel.findByIdAndDelete(id));
+    return deleteHero(heroId).map(toDomainObject);
   },
-  getOne: () => {
-    const deleteHero = fromPromise(() => HeroModel.findById());
-    return deleteHero();
+  getOne: (heroId) => {
+    const getHero = fromPromise((id) => HeroModel.findById(id));
+    return getHero(heroId).map(toDomainObject);
   },
-  updateOne: () => {
-    const deleteHero = fromPromise(() => HeroModel.updadeById());
-    return deleteHero();
+  updateOne: (heroId, heroData) => {
+    const updateHero = fromPromise((id, data) => HeroModel.findByIdAndUpdate(
+      id,
+      toDatabase(data),
+      { new: true },
+    ));
+    return updateHero(heroId, heroData).map(toDomainObject);
   },
 });
 
