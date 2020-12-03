@@ -77,5 +77,5 @@ jobs:
       run: cp .example.env .env
 
     - name: Test
-      run: ./node_modules/.bin/env-cmd npm run test --if-present
+      run: ./node_modules/.bin/env-cmd --verbose npm run test --if-present
 
