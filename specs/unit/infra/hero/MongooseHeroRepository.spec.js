@@ -5,7 +5,7 @@ const {
 } = require('src/infra/database/models');
 const { HeroDomainFactory } = require('src/domain/hero');
 const resultToObject = require('specs/support/resultToObject');
-const mongoose = require('mongoose');
+const chance = require('chance').Chance();
 
 const HeroRepository = heroRepository({ HeroModel });
 
@@ -46,7 +46,7 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
       });
 
       test('should return an existent hero', async () => {
-        const result = await HeroRepository.getOne(hero.id).toPromise();
+        const result = await HeroRepository.getOne(hero.name).toPromise();
 
         expect(result).toEqualOk(HeroDomainFactory(hero));
       });
@@ -54,8 +54,8 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
 
     describe('When there\'s no hero for the id provided', () => {
       test('should return no hero', async () => {
-        const randomUid = mongoose.Types.ObjectId();
-        const result = await HeroRepository.getOne(randomUid).toPromise();
+        const randomName = chance.name();
+        const result = await HeroRepository.getOne(randomName).toPromise();
 
         expect(result).toBeNull();
       });
@@ -133,7 +133,7 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
       });
 
       test('should return an ok deleted hero', async () => {
-        const result = await HeroRepository.delete(hero.id).toPromise();
+        const result = await HeroRepository.delete(hero.name).toPromise();
 
         expect(result).toEqualOk(HeroDomainFactory(hero));
       });
@@ -141,8 +141,8 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
 
     describe('When there\'s no hero to delete', () => {
       test('should return an ok deleted hero', async () => {
-        const randomUid = mongoose.Types.ObjectId();
-        const result = await HeroRepository.delete(randomUid).toPromise();
+        const randomName = chance.name();
+        const result = await HeroRepository.delete(randomName).toPromise();
 
         expect(result).toBeNull();
       });
