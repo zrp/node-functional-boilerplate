@@ -14,13 +14,13 @@ const MongooseHeroRepository = ({
     return getAllHeroes()
       .map(toDomainObject);
   },
-  delete: (heroId) => {
-    const deleteHero = fromPromise((id) => HeroModel.findByIdAndDelete(id));
-    return deleteHero(heroId).map(toDomainObject);
+  delete: (heroName) => {
+    const deleteHero = fromPromise((name) => HeroModel.findOneAndDelete(name));
+    return deleteHero(heroName).map(toDomainObject);
   },
-  getOne: (heroId) => {
-    const getHero = fromPromise((id) => HeroModel.findById(id));
-    return getHero(heroId).map(toDomainObject);
+  getOne: (heroName) => {
+    const getHero = fromPromise((name) => HeroModel.findOne({ name }));
+    return getHero(heroName).map(toDomainObject);
   },
   updateOne: (heroId, heroData) => {
     const updateHero = fromPromise((id, data) => HeroModel.findByIdAndUpdate(

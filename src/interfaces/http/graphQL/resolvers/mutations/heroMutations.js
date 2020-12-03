@@ -10,7 +10,7 @@ module.exports = ({
   updateHero: (_, id, hero) => updateHero(id, hero).toPromise()
     .then(({ result }) => result)
     .catch(apolloErrorHandler),
-  deleteHero: (_, id) => deleteHero(id).toPromise()
+  deleteHero: (_, heroName) => deleteHero(heroName).toPromise()
     .then(({ result }) => result)
     .catch(apolloErrorHandler),
 });

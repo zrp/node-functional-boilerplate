@@ -1,13 +1,13 @@
 module.exports = ({
   getAllHeroes,
-  getHero,
+  getHeroByName,
 }) => ({
   allHeroes: async () => {
     const result = await getAllHeroes().toPromise();
     return result;
   },
-  getHero: async (heroId) => {
-    const result = await getHero(heroId).toPromise();
+  heroByName: async (heroName) => {
+    const result = await getHeroByName(heroName).toPromise();
     return result;
   },
 });
