@@ -1,4 +1,4 @@
-const { Ok, Err } = require('crocks/Result');
+const { Ok } = require('crocks/Result');
 
 const resultToObject = require('specs/support/resultToObject');
 const { HeroDomainFactory } = require('src/domain/hero');
@@ -32,10 +32,9 @@ describe('Domain :: hero :: HeroModule', () => {
       test('should return a Crocks Result with a Err instance', () => {
         const heroData = {
           superPowers: ['fly'],
-          name: 'Some name',
+          name: 'Super Lhama',
           powerLevel: 'S',
           baseOperations: 'New York',
-          name: 'Super Lhama',
           weapon: 'Astral Hammer',
         };
         const isValid = HeroDomainFactory(heroData);
