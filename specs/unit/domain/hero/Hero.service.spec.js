@@ -1,4 +1,4 @@
-const { HeroDomainService } = require('../../../../src/domain/hero');
+const { HeroDomainService } = require('src/domain/hero');
 
 describe('Domain :: Hero :: HeroService', () => {
   describe('#addSuperPower', () => {

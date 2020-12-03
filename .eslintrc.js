@@ -41,6 +41,7 @@ module.exports = {
     'jest/prefer-strict-equal': 2,
     'jest/require-to-throw-message': 2,
     'jest/valid-title': 2,
+    'jest/no-done-callback': 0,
 
     // fp-rules
     'fp/no-arguments': 'error',

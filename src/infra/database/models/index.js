@@ -1,16 +1,9 @@
-const mongoose = require('mongoose');
+const db = require('mongoose');
 const { ModelsLoader } = require('../../mongoose');
 
-if (process.env.MONGO_DB_URL) {
-  const db = mongoose;
+const loader = () => ModelsLoader.load({
+  db,
+  baseFolder: __dirname,
+});
 
-  module.exports = ModelsLoader.load({
-    db,
-    baseFolder: __dirname,
-  });
-} else {
-  /* eslint-disable no-console */
-  // eslint-disable-next-line fp/no-unused-expression
-  console.error('Database config file not found, disabling database.');
-  /* eslint-enable no-console */
-}
+module.exports = loader();

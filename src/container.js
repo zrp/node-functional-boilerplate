@@ -34,7 +34,7 @@ const {
   HeroDomainFactory,
 } = require('./domain/hero');
 
-const { loggerFactory } = require('./infra/logging/logger');
+const { getLogger } = require('./infra/logging/logger');
 
 const container = createContainer()
   .loadModules([
@@ -78,7 +78,7 @@ const container = createContainer()
   });
 
 // Register Logger
-const logger = container.build(asFunction(loggerFactory));
+const logger = container.build(asFunction(getLogger));
 
 // eslint-disable-next-line fp/no-unused-expression
 container.register({
