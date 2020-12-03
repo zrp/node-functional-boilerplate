@@ -1,4 +1,11 @@
-const clearDB = (database, done) => {
+const { mongoDb } = require('config/index');
+
+const container = require('src/container');
+
+const database = container.resolve('database');
+
+const clearDB = (done) => {
+  // eslint-disable-next-line guard-for-in, no-restricted-syntax
   for (const i in database.connection.collections) {
     database.connection.collections[i].deleteMany(() => { });
     database.connection.collections[i].dropIndexes(() => { });
@@ -6,10 +13,11 @@ const clearDB = (database, done) => {
   return done();
 };
 
-module.exports = async (database, done) => {
+// eslint-disable-next-line consistent-return
+module.exports = async (done) => {
   if (database.connection.readyState === 0) {
     await database.connect(
-      process.env.MONGO_DB_URL,
+      mongoDb.url,
       {
         useCreateIndex: true,
         useNewUrlParser: true,
@@ -17,14 +25,11 @@ module.exports = async (database, done) => {
         useUnifiedTopology: true,
       },
       (err) => {
-        if (err) {
-          throw err;
-        }
-        // database.set('debug', true);
-        return clearDB(database, done);
+        if (err) throw err;
+        return clearDB(done);
       },
     );
   } else {
-    return clearDB(database, done);
+    return clearDB(done);
   }
 };

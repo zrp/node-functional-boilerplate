@@ -1,20 +1,5 @@
 const { chance, getRandomIndex } = require('src/infra/support/dataFaker.js');
-
-const mongooseToObjectOptions = () => ({
-  getters: true,
-  virtuals: false,
-  minimize: false,
-  versionKey: false,
-  /* eslint-disable no-underscore-dangle, no-param-reassign */
-  transform: (doc, ret) => {
-    if (ret._id) {
-      ret.id = ret._id.toString();
-      delete ret._id;
-    }
-    return ret;
-  },
-  /* eslint-enable no-underscore-dangle, no-param-reassign */
-});
+const { toObjectOptions } = require('src/infra/mongoose/utils');
 
 const superPowers = [
   'Regenerative Healing Factor',
@@ -43,7 +28,7 @@ module.exports = (factory, { Hero }) => {
     weapon: getRandomIndex(weapons),
     baseOperations: chance.city(),
   }, {
-    afterCreate: (model) => model.toObject(mongooseToObjectOptions()),
+    afterCreate: (model) => model.toObject(toObjectOptions()),
   });
   return factory;
 };

@@ -1,5 +1,15 @@
-const { fromPromise } = require('crocks/Async');
-const { toDatabase, toDomainObject } = require('./MongooseHeroMapper');
+const { fromPromise, Rejected, Resolved } = require('crocks/Async');
+const isEmpty = require('crocks/core/isEmpty');
+const ifElse = require('crocks/logic/ifElse');
+const {
+  toDatabase,
+  toDomainObject,
+  toSuccess,
+} = require('./MongooseHeroMapper');
+
+const rejectNotFound = () => Rejected({ message: 'NotFoundError' });
+
+const handleNotFoundError = ifElse(isEmpty, rejectNotFound, Resolved);
 
 const MongooseHeroRepository = ({
   HeroModel,
@@ -10,21 +20,28 @@ const MongooseHeroRepository = ({
       .map(toDomainObject);
   },
   getAll: () => {
-    const getAllHeros = fromPromise(() => HeroModel.find());
-    return getAllHeros()
+    const getAllHeroes = fromPromise(() => HeroModel.find());
+    return getAllHeroes()
       .map(toDomainObject);
   },
-  delete: () => {
-    const deleteHero = fromPromise(() => HeroModel.delete());
-    return deleteHero();
+  delete: (heroId) => {
+    const deleteHero = fromPromise((id) => HeroModel.findByIdAndDelete(id));
+    return deleteHero(heroId)
+      .chain(handleNotFoundError)
+      .map(toSuccess);
   },
-  getOne: () => {
-    const deleteHero = fromPromise(() => HeroModel.findById());
-    return deleteHero();
+  getOne: (heroId) => {
+    const getOneHero = fromPromise((id) => HeroModel.findById(id));
+    return getOneHero(heroId)
+      .chain(handleNotFoundError)
+      .map(toDomainObject);
   },
-  updateOne: () => {
-    const deleteHero = fromPromise(() => HeroModel.updadeById());
-    return deleteHero();
+  updateOne: (heroData) => {
+    const updateOneHero = fromPromise((data) => HeroModel
+      .findByIdAndUpdate(data.id, toDatabase(data), { new: true }));
+    return updateOneHero(heroData)
+      .chain(handleNotFoundError)
+      .map(toDomainObject);
   },
 });
 
