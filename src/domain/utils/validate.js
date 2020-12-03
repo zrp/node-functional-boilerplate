@@ -8,7 +8,10 @@ const mapStructError = ({
 
 const validateDomain = (struct) => (domainData) => {
   const [error, value] = validate(domainData, struct);
-  return error ? Err(mapStructError(error)) : Ok(value);
+  return error ? Err({
+    name: 'ValidationError',
+    details: mapStructError(error),
+  }) : Ok(value);
 };
 
 module.exports = validateDomain;

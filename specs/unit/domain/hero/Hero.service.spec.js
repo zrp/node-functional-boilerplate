@@ -1,4 +1,4 @@
-const { HeroDomainService } = require('../../../../src/domain/hero');
+const { HeroDomainService } = require('src/domain/hero');
 
 describe('Domain :: Hero :: HeroService', () => {
   describe('#addSuperPower', () => {
@@ -9,7 +9,7 @@ describe('Domain :: Hero :: HeroService', () => {
       weapon: 'Astral Hammer',
     };
     test('should add a new super power in hero domain object', () => {
-      const expected = HeroDomainService.addSuperPower(heroData, 'super strength');
+      const expected = HeroDomainService.addSuperPower('super strength')(heroData);
       expect(expected).toStrictEqual({
         superPowers: ['fly', 'super strength'],
         powerLevel: 'S',

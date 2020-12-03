@@ -1,3 +1,5 @@
+const Maybe = require('crocks/Maybe');
+
 const {
   createContainer, asFunction, asValue, Lifetime,
 } = require('awilix');
@@ -5,10 +7,16 @@ const {
 // Configuration imports
 const config = require('../config');
 
+const { isDevelopment } = require('./utils');
+
 // Interfaces layer imports
 const {
   healthCheckHandler,
+  devErrorHandler,
+  errorHandler,
 } = require('./interfaces/http/handlers');
+
+const apolloErrorHandler = require('./interfaces/http/graphQL/errorHandler');
 const {
   corsMiddleware,
   httpOptionsMiddleware,
@@ -34,7 +42,10 @@ const {
   HeroDomainFactory,
 } = require('./domain/hero');
 
-const { loggerFactory } = require('./infra/logging/logger');
+const { getLogger } = require('./infra/logging/logger');
+
+const heroController = require('./interfaces/http/controllers/hero/heroController');
+const heroSerializer = require('./interfaces/http/controllers/hero/heroSerializer');
 
 const container = createContainer()
   .loadModules([
@@ -65,11 +76,25 @@ const container = createContainer()
     healthCheckHandler: asFunction(healthCheckHandler).singleton(),
     httpOptionsMiddleware: asFunction(httpOptionsMiddleware).singleton(),
     loggerMiddleware: asFunction(loggerMiddleware).singleton(),
+    apolloErrorHandler: asFunction(apolloErrorHandler),
     resolvers: asFunction(resolvers).singleton(),
     rootRouter: asFunction(rootRouter).singleton(),
     server: asFunction(server).singleton(),
     typeDefs: asFunction(typeDefs).singleton(),
     v1Router: asFunction(v1Router).singleton(),
+    errorHandler: asFunction(
+      isDevelopment(Maybe.of(config.nodeEnv))
+        ? devErrorHandler
+        : errorHandler,
+    ),
+  })
+  // Controllers
+  .register({
+    heroController: asFunction(heroController).singleton(),
+  })
+  // Serializer
+  .register({
+    heroSerializer: asValue(heroSerializer),
   })
   // Infra Layer Registration
   .register({
@@ -78,7 +103,7 @@ const container = createContainer()
   });
 
 // Register Logger
-const logger = container.build(asFunction(loggerFactory));
+const logger = container.build(asFunction(getLogger));
 
 // eslint-disable-next-line fp/no-unused-expression
 container.register({

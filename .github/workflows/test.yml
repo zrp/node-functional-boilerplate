@@ -57,10 +57,13 @@ jobs:
 
     env:
       NODE_PATH: .
+      MONGO_DB_URL: mongodb://localhost:27017/test
 
     services:
       mongo:
         image: mongo
+        ports:
+          - 27017:27017
 
     steps:
     - uses: actions/checkout@v2
@@ -77,5 +80,5 @@ jobs:
       run: cp .example.env .env
 
     - name: Test
-      run: ./node_modules/.bin/env-cmd npm run test --if-present
+      run: ./node_modules/.bin/env-cmd --verbose --no-override npm run test --if-present
 
