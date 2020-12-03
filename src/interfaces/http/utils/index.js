@@ -1,5 +1,13 @@
-const controllerHelpers = require('./controllerHelpers');
+const {
+  executeErrorHandler,
+  resolveAndSend,
+  resolveNotFoundError,
+  resolveValidationError,
+} = require('./controllerHelpers');
 
 module.exports = {
-  ...controllerHelpers,
+  executeErrorHandler,
+  resolveAndSend,
+  resolveNotFoundError,
+  resolveValidationError,
 };

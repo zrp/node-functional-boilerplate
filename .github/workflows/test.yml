@@ -9,15 +9,76 @@ jobs:
       matrix:
         node-version: [10.x, 12.x, 14.x]
 
+    env:
+      NODE_PATH: .
+
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.JS ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
 
-    - run: npm install
-    - run: npm run build --if-present
-    - run: NODE_PATH=. npm test
-      env:
-        CI: true
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build --if-present
+  
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    env:
+      NODE_PATH: .
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.JS ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Lint
+      run: npm run lint --if-present
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    env:
+      NODE_PATH: .
+      MONGO_DB_URL: mongodb://localhost:27017/test
+
+    services:
+      mongo:
+        image: mongo
+        ports:
+          - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.JS ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Setup env
+      run: cp .example.env .env
+
+    - name: Test
+      run: ./node_modules/.bin/env-cmd --verbose --no-override npm run test --if-present
+

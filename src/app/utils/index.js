@@ -1,5 +1,7 @@
-const createOperationOutput = require('./createOperationOutput');
+const { buildError, buildSuccess, createErr } = require('./createOperationOutput');
 
 module.exports = {
-  ...createOperationOutput,
+  buildError,
+  buildSuccess,
+  createErr,
 };

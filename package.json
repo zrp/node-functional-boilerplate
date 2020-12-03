@@ -50,7 +50,7 @@
     "graphql-import": "^1.0.2",
     "helmet": "^4.2.0",
     "http-status": "^1.5.0",
-    "mongoose": "^5.11.0",
+    "mongoose": "^5.11.2",
     "morgan": "^1.10.0",
     "superstruct": "^0.12.1",
     "winston": "^3.3.3"
@@ -59,7 +59,8 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.13.0",
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.14.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-disable": "^2.0.1",

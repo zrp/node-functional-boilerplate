@@ -1,4 +1,9 @@
 const { HeroDomainFactory } = require('src/domain/hero');
+const { Ok } = require('crocks/Result');
+const ifElse = require('crocks/logic/ifElse');
+const { Nothing } = require('crocks/Maybe');
+const isArray = require('crocks/predicates/isArray');
+const isDefined = require('crocks/core/isDefined');
 
 const toDomain = (data) => {
   const {
@@ -39,24 +44,26 @@ const toDB = (data) => {
 };
 
 const MongooseHeroMapper = {
+  toSuccess() {
+    return Ok({ success: true });
+  },
+
   toDomainObject(entity) {
-    if (!entity) return null;
+    const mapEntity = (data) => data.map(toDomain);
 
-    if (Array.isArray(entity)) {
-      return entity.map(toDomain);
-    }
+    const shouldMap = ifElse(isArray, mapEntity, toDomain);
+    const hasData = ifElse(isDefined, shouldMap, Nothing);
 
-    return toDomain(entity);
+    return hasData(entity);
   },
 
   toDatabase(entity) {
-    if (!entity) return null;
+    const mapEntity = (data) => data.map(toDB);
 
-    if (Array.isArray(entity)) {
-      return entity.map(toDB);
-    }
+    const shouldMap = ifElse(isArray, mapEntity, toDB);
+    const hasData = ifElse(isDefined, shouldMap, Nothing);
 
-    return toDB(entity);
+    return hasData(entity);
   },
 };
 

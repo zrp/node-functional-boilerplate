@@ -1,6 +1,7 @@
 const { Ok, Err } = require('crocks/Result');
+
 const resultToObject = require('specs/support/resultToObject');
-const { HeroDomainFactory } = require('../../../../src/domain/hero');
+const { HeroDomainFactory } = require('src/domain/hero');
 
 describe('Domain :: hero :: HeroModule', () => {
   describe('HeroDomainFactory', () => {
@@ -31,6 +32,7 @@ describe('Domain :: hero :: HeroModule', () => {
       test('should return a Crocks Result with a Err instance', () => {
         const heroData = {
           superPowers: ['fly'],
+          name: 'Some name',
           powerLevel: 'S',
           baseOperations: 'New York',
           name: 'Super Lhama',
