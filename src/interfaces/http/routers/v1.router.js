@@ -5,6 +5,7 @@ module.exports = ({
   config: { apollo: apolloConfig },
   httpOptionsMiddleware,
   healthCheckHandler,
+  heroController,
 }) => {
   const router = Router()
     .use(httpOptionsMiddleware)
@@ -16,5 +17,6 @@ module.exports = ({
     path: `/${apolloConfig.route}`,
   });
 
-  return router;
+  return router
+    .use('/hero', heroController.router);
 };
