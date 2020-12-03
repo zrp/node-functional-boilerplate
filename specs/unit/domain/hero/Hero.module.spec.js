@@ -1,4 +1,5 @@
 const { Ok, Err } = require('crocks/Result');
+const resultToObject = require('specs/support/resultToObject');
 const { HeroDomainFactory } = require('../../../../src/domain/hero');
 
 describe('Domain :: hero :: HeroModule', () => {
@@ -7,17 +8,23 @@ describe('Domain :: hero :: HeroModule', () => {
       test('should return a Crocks Result with a Err instance', () => {
         const heroData = {
           superPowers: ['fly'],
+          name: 'Super Lhama',
           powerLevel: 'S',
           baseOperations: 'New York',
           weapon: 'Sword of Omens',
         };
         const isValid = HeroDomainFactory(heroData);
-        const expected = isValid.equals(
-          Err([
-            '"weapon" with Sword of Omens is invalid, expected type is: Weapon',
-          ]),
-        );
-        expect(expected).toBeTruthy();
+        const expected = {
+          error: {
+            message: 'ValidationError',
+            details: [
+              '"weapon" with Sword of Omens is invalid, expected type is: Weapon',
+            ],
+          },
+          hasError: true,
+        };
+
+        expect(resultToObject(isValid)).toStrictEqual(expected);
       });
     });
     describe('When pass a valid data', () => {
@@ -26,6 +33,7 @@ describe('Domain :: hero :: HeroModule', () => {
           superPowers: ['fly'],
           powerLevel: 'S',
           baseOperations: 'New York',
+          name: 'Super Lhama',
           weapon: 'Astral Hammer',
         };
         const isValid = HeroDomainFactory(heroData);
