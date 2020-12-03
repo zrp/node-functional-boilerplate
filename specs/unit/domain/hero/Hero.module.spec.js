@@ -13,16 +13,17 @@ describe('Domain :: hero :: HeroModule', () => {
           weapon: 'Sword of Omens',
         };
         const isValid = HeroDomainFactory(heroData);
-        const expected = isValid.equals(
-          Err([
+        const expected = Err({
+          message: 'ValidationError',
+          details: [
             '"weapon" with Sword of Omens is invalid, expected type is: Weapon',
-          ]),
-        );
-        expect(expected).toBeTruthy();
+          ],
+        });
+        expect(isValid).toEqualErr(expected);
       });
     });
     describe('When pass a valid data', () => {
-      test('should return a Crocks Result with a Err instance', () => {
+      test('should return a Crocks Result with a Ok instance', () => {
         const heroData = {
           superPowers: ['fly'],
           name: 'Some name',
@@ -31,8 +32,7 @@ describe('Domain :: hero :: HeroModule', () => {
           weapon: 'Astral Hammer',
         };
         const isValid = HeroDomainFactory(heroData);
-        const expected = isValid.equals(Ok(heroData));
-        expect(expected).toBeTruthy();
+        expect(isValid).toEqualOk(Ok(heroData));
       });
     });
   });
