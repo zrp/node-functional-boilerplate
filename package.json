@@ -8,7 +8,10 @@
   "contributors": [
     "Giovanni Armane <giovanniarmane@gmail.com>",
     "Gustavo Rodarte <guga.rodarte@live.com >",
-    "Pedro Gryzinsky <p@zrp.com.br>"
+    "Pedro Gryzinsky <p@zrp.com.br>",
+    "Bernardo Bugmann <bernardo.bugmann@zrp.com.br>",
+    "Thiérry Barbosa <thierry.santos@zrp.com.br>",
+    "Nikolas Serafini <nikolas.serafini@zrp.com.br>"
   ],
   "homepage": "https://github.com/zrpaplicacoes/node-functional-boilerplate#readme",
   "bugs": {

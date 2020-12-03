@@ -5,6 +5,7 @@ const heroRepository = require('src/infra/repositories/hero/heroRepository.js');
 const {
   Hero: HeroModel,
 } = require('src/infra/database/models');
+const { HeroDomainFactory } = require('src/domain/hero');
 const resultToObject = require('specs/support/resultToObject');
 
 const HeroRepository = heroRepository({ HeroModel });
@@ -25,12 +26,7 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
 
         expect(result).toHaveLength(3);
         result.forEach((res, index) => {
-          const { ok, error } = resultToObject(res);
-
-          expect(ok).toStrictEqual({
-            ...heroes[index],
-          });
-          expect(error).toBeUndefined();
+          expect(res).toEqualOk(HeroDomainFactory(heroes[index]));
         });
       });
     });
@@ -56,14 +52,10 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
 
       test('should return the created hero', async () => {
         const result = await HeroRepository.add(payload).toPromise();
-
-        const { ok, error } = resultToObject(result);
-
-        expect(ok).toStrictEqual({
+        expect(resultToObject(result).ok).toStrictEqual({
           id: expect.any(String),
           ...payload,
         });
-        expect(error).toBeUndefined();
       });
     });
 
