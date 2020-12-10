@@ -99,7 +99,7 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
     });
 
     describe('When hero no exists', () => {
-      test('should return an error', async () => {
+      test('should return an error', () => {
         const randomId = ObjectId().toString();
         return expect(HeroRepository.delete(randomId).toPromise())
           .rejects.toStrictEqual({ message: 'NotFoundError' });
@@ -163,7 +163,7 @@ describe('Infra :: Hero :: MongooseHeroRepository', () => {
     });
 
     describe('When hero no exists', () => {
-      test('should return an error', async () => {
+      test('should return an error', () => {
         const randomId = ObjectId().toString();
         return expect(HeroRepository.updateOne(randomId).toPromise())
           .rejects.toStrictEqual({ message: 'NotFoundError' });

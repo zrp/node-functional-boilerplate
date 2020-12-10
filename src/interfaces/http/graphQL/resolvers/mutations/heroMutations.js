@@ -4,9 +4,14 @@ module.exports = ({
   deleteHero,
   apolloErrorHandler,
 }) => ({
-  createHero: (_, hero) => createHero(hero).toPromise()
-    .then(({ result }) => result)
-    .catch(apolloErrorHandler),
+  createHero: (_, hero, context) => {
+    // Apollo downcase all headers
+    const tenantId = context.req.headers['x-fusionauth-tenantid'];
+
+    return createHero(tenantId, hero).toPromise()
+      .then(({ result }) => result)
+      .catch(apolloErrorHandler);
+  },
   updateHero: (_, id, hero) => updateHero(id, hero).toPromise()
     .then(({ result }) => result)
     .catch(apolloErrorHandler),

@@ -1,20 +1,20 @@
 const startServer = (server) => server.start();
 
-const connectMongoDb = (db, config) => db
-  .connect(
+const createConnectionMongoDb = (db, config) => db
+  .createConnection(
     encodeURI(config.mongoDb.url),
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     },
-  )
-  .then(() => db.set('debug', config.nodeEnv !== 'production'));
+  );
+
+const setDebug = (db, config) => db.set('debug', config.nodeEnv !== 'production');
 
 module.exports = ({
   config,
   server,
   database,
-}) => (
-  connectMongoDb(database, config)
-    .then(startServer(server))
-);
+}) => createConnectionMongoDb(database, config)
+  .then(setDebug(database, config))
+  .then(startServer(server));

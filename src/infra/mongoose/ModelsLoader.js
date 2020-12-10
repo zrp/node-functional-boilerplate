@@ -4,20 +4,37 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
-  load({ db, baseFolder, indexFile = 'index.js' }) {
+  /**
+   * Load all models in an specific folder
+   *
+   * @param {object}
+   * @property {object} db A mongoose instance
+   * @property {string} baseFolder Current folder containing the models
+   * @property {string} indexFile Index file name in models folders
+   * @returns {object}
+   */
+  load({
+    db,
+    baseFolder,
+    indexFile = 'index.js',
+  }) {
+    const isModel = (fileName) => fileName !== indexFile && fileName.endsWith('.js');
+
     const loaded = {};
+
     // eslint-disable-next-line fp/no-unused-expression
     fs
       .readdirSync(baseFolder)
-      .filter((file) => (file.indexOf('.') !== 0) && (file !== indexFile) && (file.slice(-3) === '.js'))
-      .forEach((file) => {
-        const model = require(path.join(baseFolder, file)); /* eslint-disable-line */
-        const modelName = file.split('.')[0];
+      .filter(isModel)
+      .forEach((fileName) => {
+        const model = require(path.join(baseFolder, fileName)); /* eslint-disable-line */
+        const [modelName] = fileName.split('.');
         loaded[modelName] = model;
       });
 
-    // eslint-disable-next-line fp/no-mutation
-    loaded.database = db;
-    return loaded;
+    return {
+      database: db,
+      ...loaded,
+    };
   },
 };

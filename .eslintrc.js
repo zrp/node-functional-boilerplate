@@ -31,6 +31,7 @@ module.exports = {
   },
   rules: {
     'no-var': 'error',
+    'require-await': 'error',
 
     // jest-rules
     'jest/consistent-test-it': ['error', {

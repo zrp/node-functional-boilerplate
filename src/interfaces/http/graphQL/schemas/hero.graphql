@@ -2,8 +2,9 @@
 # import Villain from "villain.graphql"
 
 type Hero {
+  id: ID
   name: String
-  superPower: String
+  superPowers: [String],
   powerLevel: PowerLevel
   baseOperations: String
   archEnemy: Villain
@@ -11,7 +12,7 @@ type Hero {
 }
 
 input HeroFilter {
-  superPower: [String]
+  superPowers: [String]
   powerLevel: [PowerLevel]
   baseOperations: [String]
   weapon: String,
@@ -25,7 +26,7 @@ type Query {
 type Mutation {
   createHero(
     name: String!,
-    superPower: String!,
+    superPowers: [String!]!,
     powerLevel: PowerLevel!,
     baseOperations: String,
     weapon: String,
@@ -33,7 +34,7 @@ type Mutation {
 
   updateHero(
     name: String!,
-    superPower: String,
+    superPowers: [String!]!,
     powerLevel: PowerLevel,
     baseOperations: String,
     weapon: String,

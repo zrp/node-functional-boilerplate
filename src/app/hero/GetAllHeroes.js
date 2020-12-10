@@ -1,5 +1,5 @@
 const getAllHeroes = ({
   heroRepository,
-}) => () => heroRepository.getAll();
+}) => (tenantId = 'root') => heroRepository(tenantId).getAll();
 
 module.exports = getAllHeroes;

@@ -41,6 +41,8 @@ services:
     restart: always
     volumes:
       - mongo-data:/data/db
+    ports:
+      - 27017:27017
     healthcheck:
       test: echo 'db.runCommand({serverStatus:1}).ok' | mongo admin --quiet | grep 1
       interval: 5s
