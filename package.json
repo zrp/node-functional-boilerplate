@@ -48,7 +48,7 @@
     "express": "^4.17.1",
     "graphql": "^15.4.0",
     "graphql-import": "^1.0.2",
-    "helmet": "^4.2.0",
+    "helmet": "^4.5.0",
     "http-status": "^1.5.0",
     "mongoose": "^5.11.8",
     "morgan": "^1.10.0",
