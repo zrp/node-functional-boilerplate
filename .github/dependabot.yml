@@ -1,0 +1,68 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "08:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: mongoose
+    versions:
+    - 5.11.13
+    - 5.11.14
+    - 5.11.15
+    - 5.11.16
+    - 5.11.17
+    - 5.11.18
+    - 5.11.19
+    - 5.12.0
+    - 5.12.1
+    - 5.12.2
+    - 5.12.3
+    - 5.12.5
+  - dependency-name: eslint
+    versions:
+    - 7.18.0
+    - 7.19.0
+    - 7.20.0
+    - 7.21.0
+    - 7.22.0
+    - 7.23.0
+    - 7.24.0
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: apollo-server-express
+    versions:
+    - 2.19.2
+    - 2.20.0
+    - 2.21.0
+    - 2.21.1
+    - 2.21.2
+    - 2.22.1
+    - 2.22.2
+  - dependency-name: husky
+    versions:
+    - 4.3.8
+    - 5.0.9
+    - 5.1.0
+    - 5.1.1
+    - 5.1.2
+    - 5.1.3
+    - 5.2.0
+  - dependency-name: superstruct
+    versions:
+    - 0.14.0
+    - 0.14.1
+    - 0.14.2
+  - dependency-name: helmet
+    versions:
+    - 4.4.1
+  - dependency-name: node-notifier
+    versions:
+    - 8.0.1
+  - dependency-name: factory-bot
+    versions:
+    - 6.2.0
