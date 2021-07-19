@@ -60,7 +60,7 @@
     "@commitlint/config-conventional": "^11.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.14.0",
+    "eslint": "^7.31.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-disable": "^2.0.1",
