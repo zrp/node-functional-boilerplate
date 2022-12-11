@@ -45,7 +45,7 @@
     "chance": "^1.1.7",
     "crocks": "^0.12.4",
     "env-var": "^7.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql": "^15.4.0",
     "graphql-import": "^1.0.2",
     "helmet": "^4.2.0",
